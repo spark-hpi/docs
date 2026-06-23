@@ -1,7 +1,3 @@
----
-up:
-  - "[[Homeserver]]"
----
 ## What is a server?
 
 One might think that servers exist only in big racks inside data centres. That might be the case for complex deployments of critical systems, but is not feasible to deploy at home.
