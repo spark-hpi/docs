@@ -82,12 +82,15 @@ which will upload the plugin to the server. Now, you should be able to see your 
 
 <!-- TODO: add screen to playlist -->
 
+
+
 ## Resources and references
 
 Some links worth bookmarking while you build. All verified working as of June 2026.
 
 | Resource | Link | What it is |
 |----------|------|------------|
+| trmnl framework | <https://trmnl.com/framework> | Complete documentation by trmnl on how to design the dashboards + examples |
 | trmnlp | <https://github.com/usetrmnl/trmnlp> | The dev server you installed above. Local preview, PNG render, and push. |
 | trmnl-liquid | <https://github.com/usetrmnl/trmnl-liquid> | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
 | Liquid docs | <https://shopify.github.io/liquid/> | The base templating language. Loops, conditionals, and filters. |
