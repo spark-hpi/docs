@@ -86,31 +86,28 @@ which will upload the plugin to the server. Now, you should be able to see your 
 
 ## Resources and references
 
-Some links worth bookmarking while you build. All verified working as of June 2026.
-
-| Resource | Link | What it is |
+|          |      |            |
 |----------|------|------------|
 | trmnl framework | <https://trmnl.com/framework> | Complete documentation by trmnl on how to design the dashboards + examples |
-| trmnlp | <https://github.com/usetrmnl/trmnlp> | The dev server you installed above. Local preview, PNG render, and push. |
+| trmnlp | <https://github.com/usetrmnl/trmnlp> | Dev tool we installed earlier |
 | trmnl-liquid | <https://github.com/usetrmnl/trmnl-liquid> | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
 | Liquid docs | <https://shopify.github.io/liquid/> | The base templating language. Loops, conditionals, and filters. |
-| Agent Skills | <https://github.com/usetrmnl/trmnl-agent-skills> | TRMNL's official AI skill: prompt rules, the design system, and the framework guide. |
-| Plugin template | <https://github.com/hossain-khan/trmnl-plugin-template> | A clean starter with every layout (full, half, quadrant) to copy from. |
+| Agent Skills | <https://github.com/usetrmnl/trmnl-agent-skills> | TRMNL's official AI skill |
 
 ### Building plugins with an LLM
 
-If you're using an AI assistant (Claude, Cursor, Copilot, and so on) to write your plugin, paste these raw files into its context first. Without them the model invents Tailwind classes and Liquid filters that don't exist, and the renderer silently ignores them.
+If you're using an AI assistant to write your plugin, you should use the agent skill above, otherwise the agent will probably invent utility classes or fall back to Tailwind.
 
-- Prompt rules: <https://raw.githubusercontent.com/usetrmnl/trmnl-agent-skills/main/skills/trmnl/references/agent_prompt.md>
-- Valid classes (the design system): <https://raw.githubusercontent.com/usetrmnl/trmnl-agent-skills/main/skills/trmnl/references/template_guide.md>
-- Framework guide: <https://raw.githubusercontent.com/usetrmnl/trmnl-agent-skills/main/skills/trmnl/references/framework_v3_guide.md>
+See the agents skill repo above for installation instructions. If your harness is unsupported, copy all files in `skills/trmnl/references` directly to your repository and instruct your agent to read it.
 
-The skill itself lives at <https://github.com/usetrmnl/trmnl-agent-skills/blob/main/skills/trmnl/SKILL.md>.
+If you are asked about configuring an MCP server then refuse; the MCP server is part of trmnl.com and not available with BYOS deployments.
 
-### A few things that trip people up
+### Tips and tricks
 
-- Use TRMNL's own utility classes, not Tailwind. `layout--col` not `flex-col`, `bg--gray-30` not `bg-gray-300`. Tailwind classes are ignored.
-- No hex colors. Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) so it renders cleanly. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>.
-- Check the real output, not just the browser. The HTML preview at <http://localhost:4567> doesn't show how grayscale dithering treats contrast. Open `/render/full.png` to see what the device actually gets.
-- For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`, not in the URL.
-- Reshape messy JSON in `src/transform.py` instead of wrestling with it inside the Liquid template.
+- TRMNLs utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
+  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>.
+- The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
+- Use [serverless transforms](https://help.trmnl.com/en/articles/14130649-serverless) to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform, that Ruby is unsupported and that no external libraries are available (in Python, use `urllib` instead of `requests`)
+  - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
+- For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`.
+
