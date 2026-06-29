@@ -43,9 +43,9 @@ then paste the token and hit Enter.
 
 ![Shell showing the output of last four commands](images/trmnlp-setup.png)
 
-## Creating your first plugin
+## Building your first plugin
 
-Change into any directory, then run
+To begin building your plugin, we will first initialize a project using `trmnlp`. Change into any directory, then run
 
 ```sh
 trmnlp init your-brand-new-plugin
@@ -53,7 +53,7 @@ trmnlp init your-brand-new-plugin
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Change into the new directory and edit `src/settings.yml`. Change the line that says
+which will create a plugin in `your-brand-new-plugin/`. Change into the new directory and edit `src/settings.yml`. Update the line that says
 
 ```yml
 name: My Plugin
@@ -73,6 +73,102 @@ trmnlp serve
 and open the URL it prints (<http://localhost:4567>) in your browser. This will preview your plugin inside the browser and update as you change it. For example, try changing the "Hello, TRMNL!" inside `src/full.liquid` to "Hello, TRMNL x Spark!".
 
 ![Preview rendered by trmnlp](images/preview.png)
+
+### Anatomy of a plugin
+
+A plugin consists of up to 7 files: the `settings.yml`, a transform file if needed and five [Liquid] templates for the different splits and for shared code. It runs in one of three modes:
+
+- Static, where template data is a static blob of JSON (duh)
+- Polling, where JSON data is fetched from an API and optionally edited by a serverless function
+- [Webhooks](https://docs.trmnl.com/go/private-plugins/webhooks), where data is pushed to the server from an external service. 
+
+The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` used for when your plugin fills the entire device's screen, but if you are planning on using your plugin for example split vertically, you might want to edit the other templates later. Additionally, you can share code between templates using the [`shared.liquid`](https://trmnl.com/blog/private-plugin-shared-markup).
+
+## Building your plugin
+
+> Note: This part of the guide is mostly to help understand the plugins, you do not have to follow along if you do not want to, but it may help.
+
+Now, we will walk through building an actual polling plugin, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the times, a `div.title_bar` (the bottom bar). We will start with this template:
+
+```liquid
+<div class="view view--{{ size }}">
+<div class="layout">
+
+</div>
+
+<div class="title_bar">
+  <span class="title">Hacker News</span>
+  <span class="instance">Top {{ fetched_count }} stories</span>
+</div>
+</div>
+```
+
+This template already contains a variable, `fetched_count`. Liquid expressions are fenced in `{{ }}` or `{% %}`, depending on the expression. To render this, we need to specify some data. Let's take a look at what [our API](https://github.com/hackernews/api) gives us:
+
+> *New, Top and Best Stories*
+> Up to 500 top and new stories are at `/v0/topstories` (also contains jobs) and `/v0/newstories`. Best stories are at `/v0/beststories`.
+> Example: <https://hacker-news.firebaseio.com/v0/topstories.json>
+> ```json
+> [9128264, 9127792, 9129248, 9127092, 9128367, ..., 9038733]
+> ```
+
+That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a "serverless transform": an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
+
+First, let's configure our plugin. In `src/settings.yml`, update the following keys:
+
+```yml
+strategy: polling
+polling_verb: get
+polling_url: https://hacker-news.firebaseio.com/v0/topstories.json
+polling_headers: ''
+serverless_language: python
+```
+
+Then, we can write a `src/transform.py` to modify the data:
+
+```python
+import requests
+
+
+def run(input):
+    ids = input.get("data", [])[:6] # get the 6 top stories
+
+    stories = []
+    for idx, id in enumerate(ids, start=1):
+        item = requests.get(f"https://hacker-news.firebaseio.com/v0/item/{id}.json").json()
+
+        stories.append(
+            {
+                "rank": idx,
+                "title": item.get("title", ""),
+                "by": item.get("by", ""),
+                "score": item.get("score", 0),
+                "comments": item.get("descendants", 0),
+            }
+        )
+
+    return {"stories": stories, "fetched_count": len(stories)}
+```
+
+This takes in the initial response (`input["data"]`) and turns into a list of JSON objects, as well as the `fetched_count` we used earlier. Now, we can update our template to iterate over `stories`. Inside the layout `div` from earlier, insert
+
+```liquid
+{% for story in stories %}
+  <div class="item">
+    <div class="meta">
+      <span class="index">{{ story.rank }}</span>
+    </div>
+    <div class="content">
+      <span class="title title--small" data-clamp="2">{{ story.title }}</span>
+      <span class="description">{{ story.by }}{% if story.score %} &nbsp;·&nbsp; {{ story.score }} pts{% endif %}{% if story.comments %} &nbsp;·&nbsp; {{ story.comments }} comments{% endif %}</span>
+    </div>
+  </div>
+{% endfor %}
+```
+
+We can access the fields of our JSON objects using `.field` notation. For control structures, see the Liquid reference at the bottom of the document.
+
+## Uploading your plugin to your device
 
 Once you're done with your changes, run
 
@@ -94,7 +190,7 @@ Here, you can view and edit the code of the plugin, but more importantly, you ca
 
 Check the box with your device's name, and create a playlist if one doesn't exist already. Leave the scheduling options as-is and keep the layout as full. Give it any name, like Hackathon.
 
-Turn on your trmnl. Now, the image on it should update to the plugin you created. The dashboard view will update with and only with the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
+Turn on your TRMNL. Now, the image on it should update to the plugin you created. The dashboard view will update with and only with the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
 
 ![The dashboard view](images/applied.png)
 
@@ -102,7 +198,7 @@ Turn on your trmnl. Now, the image on it should update to the plugin you created
 
 |          |      |            |
 |----------|------|------------|
-| trmnl framework | <https://trmnl.com/framework> | Complete documentation by trmnl on how to design the dashboards + examples |
+| TRMNL framework | <https://trmnl.com/framework> | Complete documentation by TRMNL on how to design the dashboards + examples |
 | trmnlp | <https://github.com/usetrmnl/trmnlp> | Dev tool we installed earlier |
 | trmnl-liquid | <https://github.com/usetrmnl/trmnl-liquid> | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
 | Liquid docs | <https://shopify.github.io/liquid/> | The base templating language. Loops, conditionals, and filters. |
@@ -130,8 +226,9 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 | Term | Acronym | Definition |
 | -- | -- | -- |
 | Dithering | | Noise filter used to create an illusion of more color depth |
-| Bring your own server | BYOS | Term used by trmnl to describe self-hostable open-source servers compatible with their devices |
+| Build your own server | BYOS | Term used by TRMNL to describe self-hostable open-source servers compatible with their devices |
 | Larapaper | | BYOS server written in Laravel, which is what we're using for this hackathon |
 | Liquid | | Templating language used by plugins |
 | Templating language | | Markup language with control structures. Usually directly transpiles to another markup language, often HTML |
+| Jason | JSON | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
