@@ -2,6 +2,7 @@
 up:
   - "[[How To Home Server]]"
 ---
+
 ## Glossary
 
 | Term                                | Acronym                                                  | Definition                                                                                                                                                                                                                                                     |
@@ -23,26 +24,25 @@ up:
 | (Docker) Compose                    |                                                          | A set of commands which will create containers based on a `compose.yaml`.                                                                                                                                                                                      |
 | LXC                                 |                                                          |                                                                                                                                                                                                                                                                |
 
-
 ## Variable notation
 
-We use a common notation for placeholders. `<NAME>` is the required variable NAME, which you have to replace with the name needed (context should usually tell you what name we are referring to). When replacing it, replace not only the the variable name, but also the  brackets/braces _directly_ around it. For example, if your (user-)name is "alice" and your server has the hostname `alice-super-pc`, you should enter a command `ssh <YOURNAME>@<HOSTNAME>` like `ssh alice@alice-super-pc`, and a command `echo '<<YOURNAME>>' >> wonderland.txt`like `echo '<alice>' >> wonderland.txt`. 
+We use a common notation for placeholders. `<NAME>` is the required variable NAME, which you have to replace with the name needed (context should usually tell you what name we are referring to). When replacing it, replace not only the the variable name, but also the brackets/braces _directly_ around it. For example, if your (user-)name is "alice" and your server has the hostname `alice-super-pc`, you should enter a command `ssh <YOURNAME>@<HOSTNAME>` like `ssh alice@alice-super-pc`, and a command `echo '<<YOURNAME>>' >> wonderland.txt`like `echo '<alice>' >> wonderland.txt`.
 
 ## File content notation
 
 For files you need to create, we usually put the file path into the first line. For example, if you need to create the files `/etc/foo.txt`, `/etc/bar.txt` and `/etc/baz.txt`, the notation
 
-```
+```text
 # /etc/foo.txt
 bar
 ```
 
-```
+```text
 # /etc/bar.txt
 baz
 ```
 
-```
+```text
 # /etc/baz.txt
 foo
 ```

@@ -1,4 +1,5 @@
 ### 1. The Wakeup Forcer
+
 An alarm enforcer that rings on your phone until you walk to another room and scan the QR code on this panel.
 
 ```text
@@ -8,6 +9,7 @@ An alarm enforcer that rings on your phone until you walk to another room and sc
 ```
 
 ### 2. VBB Transit Ghost
+
 A front door departure board that calculates your exact walking time to the station and turns completely black when you need to run.
 
 ```text
@@ -17,6 +19,7 @@ LEAVE NOW FOR:
 ```
 
 ### 3. Plant Tamagotchi
+
 Your houseplant's soil moisture mapped to a pixel art face that visually degrades when the plant desperately needs water.
 
 ```text
@@ -25,6 +28,7 @@ Your houseplant's soil moisture mapped to a pixel art face that visually degrade
 ```
 
 ### 4. Room Map
+
 A live line art floor plan of your space using native 1-bit dithering as a thermal heatmap to fill warmer rooms with denser pixel patterns.
 
 ```text
@@ -35,6 +39,7 @@ A live line art floor plan of your space using native 1-bit dithering as a therm
 ```
 
 ### 5. Study Mode Timer
+
 A desk companion showing your top three tasks and a giant, silent countdown to your next meeting or hard deadline.
 
 ```text
@@ -44,6 +49,7 @@ until Stats lecture
 ```
 
 ### 6. Stale Air Visualizer
+
 A CO2 monitor that drops numbers entirely and fills the screen with heavy visual static as air quality worsens.
 
 ```text
@@ -53,6 +59,7 @@ A CO2 monitor that drops numbers entirely and fills the screen with heavy visual
 ```
 
 ### 7. Roommate Roster
+
 A persistent hallway dashboard displaying this week's chore assignments alongside a shared grocery deficit to organize the flat without digital nagging.
 
 ```text

@@ -2,11 +2,12 @@
 up:
   - "[[How To Home Server]]"
 ---
+
 ## Creating an SSH config
 
 Then, create an SSH config file, a file named `config` (no extension) in the `<YOUR-USER-PATH>/.ssh` folder in your PC's home:
 
-```
+```text
 # ~/.ssh/config
 
 # an alias so you can `ssh <NAME>`, e.g. server or raspi
@@ -16,19 +17,19 @@ Host <NAME>
    Port 22
 ```
 
-
 > [!NOTE] IP on Proxmox
 > Use the IP of the LXC you created.
 
 ## Logging in
 
-Now, try running 
+Now, try running
 
 ```sh
 ssh <NAME>
 ```
 
 You should be able to log in _without a password_. If not, check the OS installation guide again or ask for help.
+
 ## Securing the SSH server
 
 Once your SSH key is on the server, we're going to disable password authentication for security reasons. Log into the server as root, then run
@@ -39,25 +40,25 @@ nano /etc/ssh/sshd_config
 
 This will open up the SSH server configuration file in the nano text editor, see [[How to nano]]. Move around using arrow keys to find the line that says
 
-```
+```text
 #PasswordAuthentication yes
 ```
 
 and change it to
 
-```
+```text
 PasswordAuthentication no
 ```
 
 Then, find the line that starts with
 
-```
+```text
 #PermitRootLogin
 ```
 
 and change it to
 
-```
+```text
 PermitRootLogin prohibit-password
 ```
 

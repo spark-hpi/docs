@@ -2,6 +2,7 @@
 up:
   - "[[How To Home Server]]"
 ---
+
 Docker allows you to install containers that contain an operating system and a service / program. Containers are more secure than installing a service directly on your OS. They also fix the "works on my machine", which you may be familiar with :)
 
 If you are using your laptop, jump to the section for your OS. Otherwise, go to [[#Linux (Debian / Proxmox / Raspberry Pi OS)]].
@@ -48,7 +49,7 @@ docker run --rm -it hello-world
 
 You should get this output.
 
-```
+```text
 Unable to find image 'hello-world:latest' locally
 latest: Pulling from library/hello-world
 4f55086f7dd0: Pull complete 
@@ -85,7 +86,7 @@ docker compose version
 
 It should output
 
-```
+```text
 Docker Compose version <VERSION>
 ```
 
@@ -98,4 +99,3 @@ Create the directory:
 ```sh
 mkdir -p /srv
 ```
-
