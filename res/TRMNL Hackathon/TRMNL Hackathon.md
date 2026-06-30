@@ -18,7 +18,7 @@ We assume you know how to use a terminal (as in, the command line). If you're on
 
 First, go to [trmnl-server] in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
 
-<!-- TODO: Picture of register page -->
+![Register page](images/register.png)
 
 This is going to be the server which will serve images to your TRMNL. An admin will have to approve your account:
 
@@ -110,7 +110,7 @@ A plugin consists of up to 6-7 files: the `settings.yml`, a [transform file][trm
 
 The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` file used for when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
 
-<!-- todo: image of splits -->
+![Example of split views](images/split.png)
 
 ## Building your plugin
 
