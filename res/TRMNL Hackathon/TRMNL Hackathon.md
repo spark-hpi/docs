@@ -20,7 +20,7 @@ After registering your device, click on your profile in the top right and head t
 
 ## Development setup
 
-We're going to be developing plugins using `trmnlp`. To get started, you need to install Ruby 4 on your machine.
+We're going to be developing plugins using `trmnlp`. To get started, you need to install Ruby 4 on your machine. It may be already installed on your system. 
 
 Try running
 
@@ -56,7 +56,7 @@ trmnlp init your-brand-new-plugin
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your  and edit `src/settings.yml`. Update the line that says
+which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your and edit `src/settings.yml`. Update the line that says
 
 ```yml
 name: My Plugin
@@ -67,6 +67,7 @@ to something else, like
 ```yml
 name: My amazing plugin!
 ```
+
 Then, run
 
 ```sh
@@ -115,6 +116,7 @@ This template already contains a variable, `fetched_count`. Liquid expressions a
 > **New, Top and Best Stories**  
 > Up to 500 top and new stories are at `/v0/topstories` (also contains jobs) and `/v0/newstories`. Best stories are at `/v0/beststories`.
 > Example: [hn-topstories]
+>
 > ```json
 > [9128264, 9127792, 9129248, 9127092, 9128367, ..., 9038733]
 > ```
@@ -127,7 +129,7 @@ First, let's configure our plugin. In `src/settings.yml`, update the following k
 strategy: polling
 polling_verb: get
 polling_url: https://hacker-news.firebaseio.com/v0/topstories.json
-polling_headers: ''
+polling_headers: ""
 serverless_language: python
 ```
 
@@ -205,13 +207,13 @@ Turn on your TRMNL and press the reset button. Now, the image on it should updat
 
 ## Resources and references
 
-|          |      |            |
-|----------|------|------------|
-| TRMNL framework | [framework] | Complete documentation by TRMNL on how to design the dashboards + examples |
-| trmnlp | [trmnlp] | Dev tool we installed earlier |
-| trmnl-liquid | [trmnl-liquid] | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
-| Liquid docs | [liquid-docs] | The base templating language. Loops, conditionals, and filters. |
-| Agent Skills | [trmnl-agent-skills] | TRMNL's official AI skill |
+|                 |                      |                                                                                  |
+| --------------- | -------------------- | -------------------------------------------------------------------------------- |
+| TRMNL framework | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
+| trmnlp          | [trmnlp]             | Dev tool we installed earlier                                                    |
+| trmnl-liquid    | [trmnl-liquid]       | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
+| Liquid docs     | [liquid-docs]        | The base templating language. Loops, conditionals, and filters.                  |
+| Agent Skills    | [trmnl-agent-skills] | TRMNL's official AI skill                                                        |
 
 ### Building plugins with an LLM
 
@@ -224,35 +226,35 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 ## Tips and tricks
 
 - TRMNLs utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
-  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See [trmnl-grayscale].
+    - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See [trmnl-grayscale].
 - The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
 - Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
-  - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
+    - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
 - For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`.
 
 ## Glossary
 
-| Term | Acronym | Definition |
-| -- | -- | -- |
-| Dithering | | Noise filter used to create an illusion of more color depth |
-| Build your own server | BYOS | Term used by TRMNL to describe self-hostable open-source servers compatible with their devices |
-| Larapaper | | BYOS server written in Laravel, which is what we're using for this hackathon |
-| Liquid | | Templating language used by plugins |
-| Templating language | | Markup language with control structures. Usually directly transpiles to another markup language, often HTML |
-| Jason | JSON | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
+| Term                  | Acronym | Definition                                                                                                                         |
+| --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| Dithering             |         | Noise filter used to create an illusion of more color depth                                                                        |
+| Build your own server | BYOS    | Term used by TRMNL to describe self-hostable open-source servers compatible with their devices                                     |
+| Larapaper             |         | BYOS server written in Laravel, which is what we're using for this hackathon                                                       |
+| Liquid                |         | Templating language used by plugins                                                                                                |
+| Templating language   |         | Markup language with control structures. Usually directly transpiles to another markup language, often HTML                        |
+| Jason                 | JSON    | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
-[trmnl-server]: <https://trmnl.hpi.church>
-[trmnl-plugins]: <https://trmnl.hpi.church/plugins>
-[rubyinstaller]: <https://rubyinstaller.org>
-[localhost]: <http://localhost:4567>
-[Webhooks]: <https://docs.trmnl.com/go/private-plugins/webhooks>
-[shared-liquid]: <https://trmnl.com/blog/private-plugin-shared-markup>
-[hackernews-api]: <https://github.com/hackernews/api>
-[hn-topstories]: <https://hacker-news.firebaseio.com/v0/topstories.json>
-[trmnlp]: <https://github.com/usetrmnl/trmnlp>
-[liquid-docs]: <https://shopify.github.io/liquid/>
-[trmnl-agent-skills]: <https://github.com/usetrmnl/trmnl-agent-skills>
-[trmnl-grayscale]: <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>
-[trmnl-serverless]: <https://help.trmnl.com/en/articles/14130649-serverless>
-[trmnl-liquid]: <https://github.com/usetrmnl/trmnl-liquid>
-[framework]: <https://trmnl.com/framework>
+[trmnl-server]: https://trmnl.hpi.church
+[trmnl-plugins]: https://trmnl.hpi.church/plugins
+[rubyinstaller]: https://rubyinstaller.org
+[localhost]: http://localhost:4567
+[Webhooks]: https://docs.trmnl.com/go/private-plugins/webhooks
+[shared-liquid]: https://trmnl.com/blog/private-plugin-shared-markup
+[hackernews-api]: https://github.com/hackernews/api
+[hn-topstories]: https://hacker-news.firebaseio.com/v0/topstories.json
+[trmnlp]: https://github.com/usetrmnl/trmnlp
+[liquid-docs]: https://shopify.github.io/liquid/
+[trmnl-agent-skills]: https://github.com/usetrmnl/trmnl-agent-skills
+[trmnl-grayscale]: https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework
+[trmnl-serverless]: https://help.trmnl.com/en/articles/14130649-serverless
+[trmnl-liquid]: https://github.com/usetrmnl/trmnl-liquid
+[framework]: https://trmnl.com/framework
