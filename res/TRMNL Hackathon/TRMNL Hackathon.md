@@ -26,15 +26,15 @@ This is going to be the server which will serve images to your TRMNL. An admin w
 
 Once approved, log in again. You will now be able to register a device.
 
-The Device should display a `Friendly ID`. Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-YOUR_FRIENDLY_ID wifi. connect to it.
+The device should display a "Friendly ID". Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-YOUR_FRIENDLY_ID wifi. Connect to it.
 
-A captive portal should open. Scroll down and click on `Advanced`, then on `Custom URL`. Click Yes and enter <https://trmnl.hpi.church> into the field (do not skip the "https://"!).
+A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter [trmnl-server] into the field (do not skip the "https://"!).
 
-Scroll down and click on `Save`, then `Back to wifi`. now look for the `TRMNL Public` SSID and enter the password (it will be written somewhere in the room). Then click `connect`.
+Scroll down and click on Save, then Back to wifi. Now, look for the TRMNL Public SSID and enter the password (it will be written somewhere in the room). Then click Connect.
 
-After some time the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
+After some time, the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
 
-Now open <https://trmnl.hpi.church> again and go to the `Devices` section. Find the device with your `Friendly ID` and rename it to `MYNAME's TRMNL`.
+Now, open [trmnl-server] again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
 
 After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
 
