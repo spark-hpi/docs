@@ -1,34 +1,30 @@
-## What this is
-We are hosting a Hackathon together with TRMNL where we develop new open source plugins for the community. 
-
-## Build Guide
-1. Watch this [Video](https://youtu.be/Z64FDqIaKpg) until 0:29 and follow the steps. (Remove protective film, connect ribbon cable to PCB)
-2. Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
-3.  We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place. 
-4. Check if it sits right by trying to flip the switch on the backside of the backplate. If it sits too flush, it doesn't sit properly.
-5. If not done already, put the display into the frame. 
-6. Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
-7. Almost done! Now you just need to slide the stand onto the back and you are ready to go. Well done :)
-
-
+We are hosting a hackathon together with TRMNL where we develop new open source plugins for the community. This document walks you through the setup.
 
 ## Prerequisites
 
-We assume you know how to use a terminal. If you're on Windows, please use WSL if possible. If you have questions about anything, please ask.
+We assume you know how to use a terminal (as in, the command line). If you're on Windows, please use WSL if possible. If you have questions about anything, please ask.
+
+## Assembling your device
+
+1. Watch [this video][assembly-video] until 0:29 and follow the steps. (Remove protective film, connect ribbon cable to PCB)
+2. Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
+3. We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place.
+4. Check if it sits right by trying to flip the switch on the backside of the backplate. If it sits too flush, it doesn't sit properly.
+5. If not done already, put the display into the frame.
+6. Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
+7. Almost done! Now you just need to slide the stand onto the back and you are ready to go. Well done :)
 
 ## Getting started with your device
 
-First, go to [trmnl-server] in your browser and click "Sign up".Use any email (it doesn't have to exist) and a secure password.
+First, go to [trmnl-server] in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
 
-<!-- TODO: Picture of login page -->
+<!-- TODO: Picture of register page -->
 
 This is going to be the server which will serve images to your TRMNL. An admin will have to approve your account:
 
 ![Waiting for approval](images/confirmation.png)
 
 Once approved, log in again. You will now be able to register a device.
-
-<!-- TODO: register device -->
 
 The Device should display a `Friendly ID`. Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-YOUR_FRIENDLY_ID wifi. connect to it.
 
@@ -38,7 +34,7 @@ Scroll down and click on `Save`, then `Back to wifi`. now look for the `TRMNL Pu
 
 After some time the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
 
-Now open <https://trmnl.hpi.church> again and go to the `Devices` section. Find the device with your `Friendly ID` and rename it to `MYNAME's TRMNL`. 
+Now open <https://trmnl.hpi.church> again and go to the `Devices` section. Find the device with your `Friendly ID` and rename it to `MYNAME's TRMNL`.
 
 After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
 
@@ -80,7 +76,7 @@ trmnlp init your-brand-new-plugin
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your  and edit `src/settings.yml`. Update the line that says
+which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your and edit `src/settings.yml`. Update the line that says
 
 ```yml
 name: My Plugin
@@ -91,6 +87,7 @@ to something else, like
 ```yml
 name: My amazing plugin!
 ```
+
 Then, run
 
 ```sh
@@ -139,11 +136,12 @@ This template already contains a variable, `fetched_count`. Liquid expressions a
 > **New, Top and Best Stories**  
 > Up to 500 top and new stories are at `/v0/topstories` (also contains jobs) and `/v0/newstories`. Best stories are at `/v0/beststories`.
 > Example: [hn-topstories]
+>
 > ```json
 > [9128264, 9127792, 9129248, 9127092, 9128367, ..., 9038733]
 > ```
 
-That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a ["serverless transform"][trmnl-transform]: an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
+That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a ["serverless transform"][trmnl-serverless]: an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
 
 First, let's configure our plugin. In `src/settings.yml`, update the following keys:
 
@@ -280,3 +278,4 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 [trmnl-serverless]: <https://help.trmnl.com/en/articles/14130649-serverless>
 [trmnl-liquid]: <https://github.com/usetrmnl/trmnl-liquid>
 [framework]: <https://trmnl.com/framework>
+[assembly-video]: <https://github.com/oskardotglobal/dbs-ex4>

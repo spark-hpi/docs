@@ -2,9 +2,10 @@
 up:
   - "[[How To Home Server]]"
 ---
+
 ## Handy Docker Commands
 
-*All `docker compose` commands expect you to be in the same directory as the `compose.yml` file.* 
+*All `docker compose` commands expect you to be in the same directory as the `compose.yml` file.*
 For more info on `compose.yml` files you can read the official [docs](https://docs.docker.com/reference/compose-file/).
 
 ```bash
@@ -14,9 +15,9 @@ docker image prune -a -f # Removes images that are not in use (all containers th
 docker compose pull # Pulls the (latest) container images.
 ```
 
-## Multiple Container In One File 
+## Multiple Container In One File
 
-It is possible to have multiple containers in the same `compose.yml` file. You can start them all at once and they share an internal virtual network. This is quite handy because you can combine a database, web server and much more in the same file, which can communicate directly with next to no overhead. It is also possible to copy this file to a new machine and spin up a new deployment without checking dependencies. 
+It is possible to have multiple containers in the same `compose.yml` file. You can start them all at once and they share an internal virtual network. This is quite handy because you can combine a database, web server and much more in the same file, which can communicate directly with next to no overhead. It is also possible to copy this file to a new machine and spin up a new deployment without checking dependencies.
 
 ## Deleting containers
 

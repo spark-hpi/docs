@@ -2,11 +2,12 @@
 up:
   - "[[Homeserver]]"
 ---
+
 There is a forest of maker content, education etc out there. This is just a small, but expandable list of cool things some of us have seen on the internet.
 
 ## YouTube
-Let's start with the best and biggest: YouTube. You can practically find anything in here, so it is quite hard to filter it out. But we tried our best:
 
+Let's start with the best and biggest: YouTube. You can practically find anything in here, so it is quite hard to filter it out. But we tried our best:
 
 ### Hardware
 
@@ -24,7 +25,7 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 
 [ExcessiveOverkill](https://www.youtube.com/@ExcessiveOverkill) - He makes "cool stuff". F.e. a fire lightsaber or working on an industrial robot arm.
 
-[HTXStudio](https://www.youtube.com/@HTXStudio) - Entertaining, high quality maker content. 
+[HTXStudio](https://www.youtube.com/@HTXStudio) - Entertaining, high quality maker content.
 
 [Engineezy](https://www.youtube.com/@Engineezy) - Visually pleasing (marble machines) and robots.
 
@@ -42,7 +43,7 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 
 [Inside Everything](https://www.youtube.com/@INSIDEVERYTHING1) - I mean the name says it all. He is going literally inside everything.
 
-[Technology Connections](https://www.youtube.com/@TechnologyConnections) -  Explains how Technology (f.e. Appliances) work
+[Technology Connections](https://www.youtube.com/@TechnologyConnections) - Explains how Technology (f.e. Appliances) work
 
 [Posy](https://www.youtube.com/@PosyMusic) - Cinematic, beautiful and calm videos about tech. Definitely a recommendation.
 
@@ -58,7 +59,7 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 
 #### Electronics/Computers
 
-[Jeff Geerling](https://www.youtube.com/@JeffGeerling) -  Mostly talking about Hardware and networking.
+[Jeff Geerling](https://www.youtube.com/@JeffGeerling) - Mostly talking about Hardware and networking.
 
 [Christian Lempa](https://www.youtube.com/@christianlempa) - Services for self hosting and server stuff.
 

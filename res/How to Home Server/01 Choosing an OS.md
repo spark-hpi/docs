@@ -2,13 +2,14 @@
 up:
   - "[[How To Home Server]]"
 ---
+
 ## Dedicated Hardware
 
-Do you have an old Laptop, mini PC or PC tower that is not used? Just use it as your new server! 
+Do you have an old Laptop, mini PC or PC tower that is not used? Just use it as your new server!
 
 As most servers use the Linux kernel, so will we. To be more precise, we will install Debian, a Linux distribution which is known for its stability and reliability.
 
-If you have a Raspberry Pi, proceed with: [[Raspberry Pi OS]]. 
+If you have a Raspberry Pi, proceed with: [[Raspberry Pi OS]].
 If your Hardware falls in one of the following categories, proceed with: [[Debian]].
 
 | Type             | Value  |

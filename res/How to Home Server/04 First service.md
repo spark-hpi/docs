@@ -2,7 +2,8 @@
 up:
   - "[[How To Home Server]]"
 ---
-Now that we are all on the same page, we can install our first service: Home Assistant, an all-in-one local smart home solution like Google Home or Apple HomeKit.  You can use it to control and automate anything "smart" in your household, via a mobile app or a web interface.
+
+Now that we are all on the same page, we can install our first service: Home Assistant, an all-in-one local smart home solution like Google Home or Apple HomeKit. You can use it to control and automate anything "smart" in your household, via a mobile app or a web interface.
 
 ![[phone.png|Home Assistant on Android|200]]
 
@@ -62,11 +63,10 @@ docker compose up -d
 1. Check if the image (the package containing the service) is already downloaded and downloads it if required
 2. Starts the service in background (`-d` stands for detached mode)
 
-Now you should be ready to setup HomeAssistant on port 8123 in your web browser. Sometimes it can take a up to 5 min until the web server is started. Especially if it is the first start and you have older hardware. 
+Now you should be ready to setup HomeAssistant on port 8123 in your web browser. Sometimes it can take a up to 5 min until the web server is started. Especially if it is the first start and you have older hardware.
 
-- http://IP:8123 (use the IP you use for connecting via SSH)
-- http://localhost:8123 (if installed locally)
-
+- <http://IP:8123> (use the IP you use for connecting via SSH)
+- <http://localhost:8123> (if installed locally)
 
 > [!WARNING] HTTP
 > We will be using HTTP connections for simplicity, but they are insecure by nature as there is no encryption. Passwords and any other data is transported in plain text and are vulnerable to [man in the middle attacks!](https://en.wikipedia.org/wiki/Man-in-the-middle_attack) . If you are interested about securing the service and exposing it to the internet, talk to us.

@@ -1,8 +1,9 @@
 ---
 up:
-  - 
+  -
   - "[[01 Choosing an OS]]"
 ---
+
 We have already prepared USB thumb drives with the installer, but if you want you can download [balenaEtcher](https://etcher.balena.io/) and a Debian install image ([x86](https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-13.4.0-amd64-netinst.iso), [ARM](https://cdimage.debian.org/debian-cd/current/arm64/iso-cd/debian-13.4.0-arm64-netinst.iso)) to flash your own.
 
 Insert the thumb drive and select it as a boot media in your BIOS. How exactly this looks will depend on your device. Generally, it is going to look like this:
@@ -17,12 +18,12 @@ Insert the thumb drive and select it as a boot media in your BIOS. How exactly t
 ## Using the installer to install Debian
 
 Follow the guide below to install Debian on your machine.
-Use the `RETURN KEY` (In German `ENTER TASTE`)  to confirm a selection and the arrow keys to move up/down
+Use the `RETURN KEY` (In German `ENTER TASTE`) to confirm a selection and the arrow keys to move up/down
 
 ![Debian Installer](images/debian1.png)
 ![](images/debian2.png)
 
-You can also select German if you want. This simplifies the installation process and you do not have to answer a few of the installation Steps. Just skip the steps in the Guide. We will continue using the English installation process. 
+You can also select German if you want. This simplifies the installation process and you do not have to answer a few of the installation Steps. Just skip the steps in the Guide. We will continue using the English installation process.
 
 ![](images/debian3.png)
 ![](images/debian4.png)
@@ -30,7 +31,7 @@ You can also select German if you want. This simplifies the installation process
 ![](images/debian6.png)
 ![](images/debian7.png)
 
-Select the keyboard you have. If you use an different keyboard layout choose it  (for example English). Only keyboards directly  connected are affected. If you connect from another PC it will use the layout of the connected PC. 
+Select the keyboard you have. If you use an different keyboard layout choose it (for example English). Only keyboards directly connected are affected. If you connect from another PC it will use the layout of the connected PC.
 
 ![](images/debian8.png)
 
@@ -38,15 +39,15 @@ We'll come across a few of these loading screens. Just wait a bit until you can 
 
 ![](images/debian9.png)
 
-The hostname is the 'name' of a device in the network. Unfortunately the network setup of the HPI does not allow to use these across different access points. We will will use the ip instead. Normal home router however does support using these without further configuration. This allows you to use `<HOSTNAME>.local` to connect to your server. This only works if you are in the same network (not outside your home). 
+The hostname is the 'name' of a device in the network. Unfortunately the network setup of the HPI does not allow to use these across different access points. We will will use the ip instead. Normal home router however does support using these without further configuration. This allows you to use `<HOSTNAME>.local` to connect to your server. This only works if you are in the same network (not outside your home).
 
 ![](images/debian10.png)
 
-You can leave this empty. 
+You can leave this empty.
 
 ![](images/debian11.png)
 
-You should choose a secure password. It will be your admin password. If possible use a randomly generated one with more than 8 characters and special characters! 
+You should choose a secure password. It will be your admin password. If possible use a randomly generated one with more than 8 characters and special characters!
 
 ![](images/debian12.png)
 
@@ -62,14 +63,14 @@ You can set the same password you choose for the admin user.
 
 ![](images/debian15.png)
 
-More waiting... 
+More waiting...
 
 ![](images/debian16.png)
 
-We will use the entire disk as the boot and system drive. 
+We will use the entire disk as the boot and system drive.
 
 > [!WARNING] DATA WILL BE DELETED
->Your disk will be reformatted and all data on this disk will be deleted. Backup your disk if you have important data on it! 
+>Your disk will be reformatted and all data on this disk will be deleted. Backup your disk if you have important data on it!
 
 ![](images/debian17.png)
 ![](images/debian18.png)
@@ -86,7 +87,7 @@ It is recommend to choose a server nearest to you. This will drastically increas
 
 ![](images/debian24.png)
 
-The package manager uses 'mirrors' to download updates and programs. You can choose a different one but they might have limited download speed. Note that many universities, etc. also host mirrors. 
+The package manager uses 'mirrors' to download updates and programs. You can choose a different one but they might have limited download speed. Note that many universities, etc. also host mirrors.
 
 ![](images/debian25.png)
 
@@ -95,7 +96,7 @@ You can leave this empty.
 ![](images/debian26.png)
 ![](images/debian27.png)
 
-You can choose to participate if you want. 
+You can choose to participate if you want.
 
 ![](images/debian28.png)
 
@@ -110,13 +111,13 @@ Even if another OS exists, override it. Leaving it install might cause problems 
 ![](images/debian31.png)
 ![](images/debian32.png)
 
-Now wait until the installation is done. Remove your USB Stick and reboot. Now you should be able to connect via SSH. For that we need the IP of you PC. 
+Now wait until the installation is done. Remove your USB Stick and reboot. Now you should be able to connect via SSH. For that we need the IP of you PC.
 
 ## Get your IP
 
 After a reboot you will see a terminal prompting you to enter a username and after that a password:
 
-```
+```text
 SOME TEXT
 HOSTNAME login: <YOUR USERNAME HERE> 
 ```
@@ -141,7 +142,7 @@ ssh <USERNAME>@<IP>
 
 You should get a prompt like this. (Enter `yes` to accept the fingerprint)
 
-```
+```text
 The authenticity of host '<IP>' can't be established.
 ED25519 key fingerprint is: SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8
 This key is not known by any other names.
@@ -152,7 +153,7 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
 Enter the password you set. Note that it will not be shown when typing. If you log in successfully, you should see an output like
 
-```
+```text
 Linux <IP> 6.8.12-16 #1 SMP PREEMPT_DYNAMIC PMX 6.8.12-16 (2025-10-14T08:58Z) <x86|ARM>
 
 The programs included with the Debian GNU/Linux system are free software;
@@ -173,11 +174,13 @@ su -
 ```
 
 Enter the password again. Now the `<USERNAME>` should change to `root`
+
 ## Key Based Authentication
+
 *This step requires you to be root*
 
 In the next steps we will setup root login with ssh keys.
-For that you need your ssh **public** key you created on you **normal PC** (`<YOUR-USER-PATH>/.ssh/id_ed25519.pub`). 
+For that you need your ssh **public** key you created on you **normal PC** (`<YOUR-USER-PATH>/.ssh/id_ed25519.pub`).
 Next we have to copy the content of this file to `/root/.ssh/authorized_keys`
 We can add one by just running **on your Server**
 
@@ -186,4 +189,3 @@ echo "<YOUR-KEY-CONTENTS-HERE>" >> /root/.ssh/authorized_keys
 ```
 
 You can also add more keys by manually edit this file using `nano /root/.ssh/authorized_keys`. You can find more on `nano` at [[How to nano]].
-

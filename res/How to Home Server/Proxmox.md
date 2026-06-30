@@ -1,8 +1,9 @@
 ---
 up:
-  - 
+  -
   - "[[01 Choosing an OS]]"
 ---
+
 Proxmox is a Debian-based Linux distribution designed for running virtual machines. It is suited well for home labs because of it's friendly web interface and big community. We are going to set up a single node (which is what Proxmox calls a physical server).
 
 ## Installing Proxmox
@@ -39,10 +40,11 @@ Your device will now reboot. When it does, unplug the USB stick and wait for the
 
 ![](images/proxmox-install-finished.jpeg)
 
-Enter the URL in your browser and ignore an invalid certificate prompt if shown. 
+Enter the URL in your browser and ignore an invalid certificate prompt if shown.
+
 ## Setting up Proxmox
 
-Since we want to run Docker on our Proxmox machine, we recommend installing a Debian LXC on Proxmox and running Docker on that instance. 
+Since we want to run Docker on our Proxmox machine, we recommend installing a Debian LXC on Proxmox and running Docker on that instance.
 
 > [!info] About this setup
 > Running Docker inside an LXC is not fully recommended. Officially, it is preferred to run Docker inside a full VM. However, this is unnecessary in our case, as the overhead is much higher for no reason.
@@ -51,13 +53,14 @@ Begin by logging in into Proxmox with the username `root` and the password you s
 
 ## Post-installation maintenance
 
-Before we can continue, we are going to run a postinstall script for some sensible defaults. For that, click on your host in the left tree and on the top bar on the right, click shell. This should open a terminal. We are going to run the "PVE Post Install" script from https://community-scripts.org/, a reputable repository of scripts to simplify installation and maintenance of services on Proxmox. You can find the script on https://community-scripts.org/scripts/post-pve-install. Run the following command:
+Before we can continue, we are going to run a postinstall script for some sensible defaults. For that, click on your host in the left tree and on the top bar on the right, click shell. This should open a terminal. We are going to run the "PVE Post Install" script from <https://community-scripts.org/>, a reputable repository of scripts to simplify installation and maintenance of services on Proxmox. You can find the script on <https://community-scripts.org/scripts/post-pve-install>. Run the following command:
 
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/post-pve-install.sh)"
 ```
 
 You will now be asked a few questions. Press y or n to answer, and enter to continue. Answer the questions like this:
+
 - Yes to starting
 - If asked about "deb822 sources", click OK
 - Disable the pve-enterprise repository (that's only for paying customers)
@@ -66,13 +69,13 @@ You will now be asked a few questions. Press y or n to answer, and enter to cont
 - Disable ceph (as before)
 - Don't add pvetest (that's for beta testing)
 - Disable the subscription nag if you want to
-	- If you selected Yes, click Ok on the next screen
+  - If you selected Yes, click Ok on the next screen
 - Disable high availability and Corosync (unless you plan to use multiple servers running Proxmox in your home network)
 - Update Proxmox now (takes some time)
 
 The output should look like this:
 
-```
+```text
     ____ _    ________   ____             __     ____           __        ____
    / __ \ |  / / ____/  / __ \____  _____/ /_   /  _/___  _____/ /_____ _/ / /
   / /_/ / | / / __/    / /_/ / __ \/ ___/ __/   / // __ \/ ___/ __/ __ `/ / /
@@ -90,7 +93,7 @@ The output should look like this:
  - Updating Proxmox VE (Patience)...
 ```
 
-After the update, you are asked to reboot now, you should probably do so. 
+After the update, you are asked to reboot now, you should probably do so.
 
 ## Getting the Debian template
 
@@ -109,9 +112,9 @@ Wait for the task to finish (last line is "TASK OK"), then close the window:
 ## Create the container
 
 From the Proxmox web GUI, click the blue Create CT button in the top-right corner. Tab by tab:
-Set the hostname to `docker`, ensure the CT ID is set to 100 and that "Unprivileged container" and "Nesting". 
+Set the hostname to `docker`, ensure the CT ID is set to 100 and that "Unprivileged container" and "Nesting".
 
-Then, paste your public key, located in `<YOUR-USER-PATH>/.ssh/id_ed25515.pub` or `<YOUR-USER-PATH>/.ssh/id_rsa.pub` and click Next. The public key is the whole line, including the `ssh-ed25519` or `ssh-rsa` prefix and the `user@host` at the end of the line, not just the random string inbetween. 
+Then, paste your public key, located in `<YOUR-USER-PATH>/.ssh/id_ed25515.pub` or `<YOUR-USER-PATH>/.ssh/id_rsa.pub` and click Next. The public key is the whole line, including the `ssh-ed25519` or `ssh-rsa` prefix and the `user@host` at the end of the line, not just the random string inbetween.
 
 ![](images/proxmox-create-ct-50.35.png)
 
@@ -149,13 +152,14 @@ nano /etc/pve/lxc/100.conf
 
 (if you need help with `nano`, see [[How to nano]])
 
-Append the line: 
+Append the line:
 
 ```conf
 lxc.apparmor.profile: unconfined
 ```
 
 This decreases security checks in the LXC, which can clash with Docker trying to create its own containers.
+
 ## Starting it
 
 In the right tree, select the newly created LXC and click start.
@@ -166,11 +170,11 @@ Now, you can continue with [[02 Connecting via SSH]].
 
 ## Taking it home (do this at the end of the workshop)
 
-Before you can take your device home, you should change the network configuration so you can just plug it in. In the Proxmox UI. Go to your node on the left, then click Network, select `vmbr0` and click Edit. 
+Before you can take your device home, you should change the network configuration so you can just plug it in. In the Proxmox UI. Go to your node on the left, then click Network, select `vmbr0` and click Edit.
 
 ![](images/proxmox-take-home.png)
 
-If your home router is for example 10.0.0.1 with a subnet mask of 255.255.0.0, the router's IP 10.0.0.1 for the gateway and for example 10.0.0.5/16 for the IPv4 (you can select any IP, but the CIDR is based on the subnet mask). 
+If your home router is for example 10.0.0.1 with a subnet mask of 255.255.0.0, the router's IP 10.0.0.1 for the gateway and for example 10.0.0.5/16 for the IPv4 (you can select any IP, but the CIDR is based on the subnet mask).
 
 After editing, do not click Apply Configuration, and instead shut down the machine later. We still need to edit one file. Open a shell on the host as before, then edit `/etc/hosts`:
 
@@ -180,13 +184,13 @@ nano /etc/hosts
 
 Edit the line containing your old IP address. In this example, change
 
-```
+```text
 192.168.1.5 <NODE>.hpi.uni-potsdam.de <NODE>
 ```
 
 to
 
-```
+```text
 10.0.0.5 <NODE>.local <NODE>
 ```
 
