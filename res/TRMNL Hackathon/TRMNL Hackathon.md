@@ -40,6 +40,9 @@ After registering your device, click on your profile in the top right and head t
 
 ## Development setup
 
+First fork the repo [trmnl-plugins](https://github.com/spark-hpi/trmnl-plugins) and clone the fork into a repo of your choice.
+(it will be used to gather all plugins)
+
 We're going to be developing plugins using `trmnlp`. To get started, you need to install Ruby 4 on your machine. It may be already installed on your system.
 
 Try running
@@ -76,6 +79,10 @@ To begin building your plugin, we will first initialize a project using `trmnlp`
 ```sh
 trmnlp init your-brand-new-plugin
 ```
+
+> [!WARNING] IMPORTANT
+> Delete the `.git` folder _in the newly created folder_ (`your-brand-new-plugin`) _NOT_ the `.git` folder in the `trmnl-plugins` folder!
+> If not done, it will cause problems later on.
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
@@ -254,6 +261,11 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 - Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
     - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
 - For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`.
+
+## How to submit your plugin
+
+If you are done developing please submit your plugin! (Only submitted plugins will be respected in the ranking)
+Just push all your changes to to your fork of the `trmnl-plugin` repo and make a Pull Request from your fork, back to the main `trmnl-plugin` repo.
 
 ## Glossary
 
