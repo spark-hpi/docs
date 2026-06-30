@@ -20,7 +20,7 @@ We assume you know how to use a terminal (as in, the command line). If you're on
 
 ![Screwing](images/build_5.jpg)
 
-4. Check if it sits right by trying to flip the switch on the backside of the backplate. If it sits too flush, it doesn't sit properly.
+4. Check if it sits right by trying to flip the switch on the backside of the backplate. If you can't flip it with your fingernail, it doesn't sit properly.
 5. Put the display into the frame.
 
 ![Placing the display into the frame](images/build_7.jpg)
@@ -33,7 +33,7 @@ We assume you know how to use a terminal (as in, the command line). If you're on
 
 ![Sliding the Prism onto the case](images/build_9.jpg)
 
-8. An you are ready to go. 
+8. And you are ready to go. 
 
 ![Well Done!](images/build_10.jpg)
 
@@ -50,9 +50,11 @@ This is going to be the server which will serve images to your TRMNL. An admin w
 
 Once approved, log in again. You will now be able to register a device.
 
+### Setting up your TRMNL
+
 The device should display a "Friendly ID". Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-YOUR_FRIENDLY_ID wifi. Connect to it.
 
-A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter [trmnl-server] into the field (do not skip the "https://"!).
+A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter https://trmnl.hpi.church into the field (do not skip the "https://"!).
 
 Scroll down and click on Save, then Back to wifi. Now, look for the TRMNL Public SSID and enter the password (it will be written somewhere in the room). Then click Connect.
 
@@ -84,7 +86,7 @@ gem install trmnl_preview
 ```
 
 > [!INFO] Build Failed Fedora
-> If this fails to to build the extension (ERROR: Failed to build gem native extension). Try to install additional `C/C++` libraries like `build-essentials` on Debian/Ubuntu or the additional dev package on fedora (`ruby-devel`)
+> If this fails to build the extension (ERROR: Failed to build gem native extension). Try to install additional `C/C++` libraries like `build-essentials` on Debian/Ubuntu or the additional dev package on fedora (`ruby-devel`)
 
 which will install the development tool we need. Now, log in using the token we created earlier. Run
 
@@ -110,7 +112,7 @@ trmnlp init your-brand-new-plugin
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your and edit `src/settings.yml`. Update the line that says
+which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your editor and edit `src/settings.yml`. Update the line that says
 
 ```yml
 name: My Plugin
@@ -142,7 +144,7 @@ A plugin consists of up to 6-7 files: the `settings.yml`, a [transform file][trm
 - Polling, where JSON data is fetched from an API and optionally edited by a serverless function
 - [Webhooks], where data is pushed to the server from an external service
 
-The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` file used for when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
+The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` file used when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
 
 ![Example of split views](images/split.png)
 
@@ -213,7 +215,7 @@ def run(input):
     return {"stories": stories, "fetched_count": len(stories)}
 ```
 
-This takes in the initial response (`input["data"]`) and turns into a list of JSON objects, as well as the `fetched_count` we used earlier. Now, we can update our template to iterate over `stories`. Inside the layout `div` from earlier, insert
+This takes in the initial response (`input["data"]`) and turns it into a list of JSON objects, as well as the `fetched_count` we used earlier. Now, we can update our template to iterate over `stories`. Inside the layout `div` from earlier, insert
 
 ```liquid
 <div class="grid grid--cols-1 gap--small">
@@ -255,7 +257,7 @@ Here, you can view and edit the code of the plugin, but more importantly, you ca
 
 Check the box with your device's name, and create a playlist if one doesn't exist already. Leave the scheduling options as-is and keep the layout as full. Give it any name, like Hackathon.
 
-Turn on your TRMNL and press the reset button. Now, the image on it should update to the plugin you created. The dashboard view will update with and only with the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
+Turn on your TRMNL and press the reset button. Now, the image on it should update to the plugin you created. The dashboard view will only update when polled from the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
 
 ![The dashboard view](images/applied.png)
 
@@ -279,7 +281,7 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 
 ## Tips and tricks
 
-- TRMNLs utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
+- TRMNL's utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
   - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See [trmnl-grayscale].
 - The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
 - Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
@@ -288,8 +290,8 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 
 ## How to submit your plugin
 
-If you are done developing please submit your plugin! (Only submitted plugins will be respected in the ranking)
-Just push all your changes to to your fork of the `trmnl-plugin` repo and make a Pull Request from your fork, back to the main `trmnl-plugin` repo.
+If you are done developing please submit your plugin! (Only submitted plugins will be respected in the voting)
+Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pull Request from your fork, back to the main `trmnl-plugin` repo.
 
 ## Glossary
 
