@@ -4,7 +4,10 @@ We assume you know how to use a terminal. If you're on Windows, please use WSL i
 
 ## Getting started with your device
 
-First, go to <https://trmnl.hpi.church> in your browser and register.
+First, go to [trmnl-server] in your browser and click "Sign up".Use any email (it doesn't have to exist) and a secure password.
+
+<!-- TODO: Picture of login page -->
+
 This is going to be the server which will serve images to your TRMNL. An admin will have to approve your account:
 
 ![Waiting for approval](images/confirmation.png)
@@ -25,7 +28,7 @@ Try running
 ruby -v
 ```
 
-to see whether you have Ruby installed. If this returns version 4, you're done, otherwise install it using your package manager. If you're on Windows, use <https://rubyinstaller.org>.
+to see whether you have Ruby installed. If this returns version 4, you're done, otherwise install it using your package manager. If you're on Windows, use [rubyinstaller] (the non-devkit version).
 
 After installing, the `gem` command (the Ruby package manager) should become available. Run
 
@@ -53,7 +56,7 @@ trmnlp init your-brand-new-plugin
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Change into the new directory and edit `src/settings.yml`. Update the line that says
+which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your  and edit `src/settings.yml`. Update the line that says
 
 ```yml
 name: My Plugin
@@ -70,25 +73,29 @@ Then, run
 trmnlp serve
 ```
 
-and open the URL it prints (<http://localhost:4567>) in your browser. This will preview your plugin inside the browser and update as you change it. For example, try changing the "Hello, TRMNL!" inside `src/full.liquid` to "Hello, TRMNL x Spark!".
+and open the URL it prints ([localhost]) in your browser. This will preview your plugin inside the browser and update as you change it. For example, try changing the "Hello, TRMNL!" inside `src/full.liquid` to "Hello, TRMNL x Spark!".
 
 ![Preview rendered by trmnlp](images/preview.png)
 
+Just keep this running and check it after changes for when we continue to edit our example plugin. But for now, let's take a step back and look at what a plugin actually contains.
+
 ### Anatomy of a plugin
 
-A plugin consists of up to 7 files: the `settings.yml`, a transform file if needed and five [Liquid] templates for the different splits and for shared code. It runs in one of three modes:
+A plugin consists of up to 6-7 files: the `settings.yml`, a [transform file][trmnl-serverless] if needed and five [Liquid templates][liquid-docs] for the different splits and for shared code. It runs in one of three modes:
 
 - Static, where template data is a static blob of JSON (duh)
 - Polling, where JSON data is fetched from an API and optionally edited by a serverless function
-- [Webhooks](https://docs.trmnl.com/go/private-plugins/webhooks), where data is pushed to the server from an external service. 
+- [Webhooks], where data is pushed to the server from an external service
 
-The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` used for when your plugin fills the entire device's screen, but if you are planning on using your plugin for example split vertically, you might want to edit the other templates later. Additionally, you can share code between templates using the [`shared.liquid`](https://trmnl.com/blog/private-plugin-shared-markup).
+The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` file used for when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
+
+<!-- todo: image of splits -->
 
 ## Building your plugin
 
 > Note: This part of the guide is mostly to help understand the plugins, you do not have to follow along if you do not want to, but it may help.
 
-Now, we will walk through building an actual polling plugin, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the times, a `div.title_bar` (the bottom bar). We will start with this template:
+Now, we will walk through building an actual plugin which polls data from Hacker News, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the times, a `div.title_bar` (the bottom bar). We will start with this code snippet for `full.liquid`:
 
 ```liquid
 <div class="view view--{{ size }}">
@@ -103,16 +110,16 @@ Now, we will walk through building an actual polling plugin, based on the `trmnl
 </div>
 ```
 
-This template already contains a variable, `fetched_count`. Liquid expressions are fenced in `{{ }}` or `{% %}`, depending on the expression. To render this, we need to specify some data. Let's take a look at what [our API](https://github.com/hackernews/api) gives us:
+This template already contains a variable, `fetched_count`. Liquid expressions are fenced in `{{ }}` or `{% %}`, depending on the expression. To render this, we need to specify some data. Let's take a look at what [our example API][hackernews-api] gives us:
 
-> *New, Top and Best Stories*
+> **New, Top and Best Stories**  
 > Up to 500 top and new stories are at `/v0/topstories` (also contains jobs) and `/v0/newstories`. Best stories are at `/v0/beststories`.
-> Example: <https://hacker-news.firebaseio.com/v0/topstories.json>
+> Example: [hn-topstories]
 > ```json
 > [9128264, 9127792, 9129248, 9127092, 9128367, ..., 9038733]
 > ```
 
-That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a "serverless transform": an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
+That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a ["serverless transform"][trmnl-transform]: an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
 
 First, let's configure our plugin. In `src/settings.yml`, update the following keys:
 
@@ -153,17 +160,19 @@ def run(input):
 This takes in the initial response (`input["data"]`) and turns into a list of JSON objects, as well as the `fetched_count` we used earlier. Now, we can update our template to iterate over `stories`. Inside the layout `div` from earlier, insert
 
 ```liquid
-{% for story in stories %}
-  <div class="item">
-    <div class="meta">
-      <span class="index">{{ story.rank }}</span>
+<div class="grid grid--cols-1 gap--small">
+  {% for story in stories %}
+    <div class="item">
+      <div class="meta">
+        <span class="index">{{ story.rank }}</span>
+      </div>
+      <div class="content">
+        <span class="title title--small" data-clamp="2">{{ story.title }}</span>
+        <span class="description">{{ story.by }}{% if story.score %} &nbsp;·&nbsp; {{ story.score }} pts{% endif %}{% if story.comments %} &nbsp;·&nbsp; {{ story.comments }} comments{% endif %}</span>
+      </div>
     </div>
-    <div class="content">
-      <span class="title title--small" data-clamp="2">{{ story.title }}</span>
-      <span class="description">{{ story.by }}{% if story.score %} &nbsp;·&nbsp; {{ story.score }} pts{% endif %}{% if story.comments %} &nbsp;·&nbsp; {{ story.comments }} comments{% endif %}</span>
-    </div>
-  </div>
-{% endfor %}
+  {% endfor %}
+</div>
 ```
 
 We can access the fields of our JSON objects using `.field` notation. For control structures, see the Liquid reference at the bottom of the document.
@@ -176,7 +185,7 @@ Once you're done with your changes, run
 trmnlp push
 ```
 
-which will upload the plugin to the server. Now, you should be able to see your plugin at <https://trmnl.hpi.church/plugins> (alternatively, open the URL `trmnlp push` printed):
+which will upload the plugin to the server. Now, you should be able to see your plugin at [trmnl-plugins] (alternatively, open the URL `trmnlp push` printed):
 
 ![The plugin overview page](images/plugins.png)
 
@@ -190,7 +199,7 @@ Here, you can view and edit the code of the plugin, but more importantly, you ca
 
 Check the box with your device's name, and create a playlist if one doesn't exist already. Leave the scheduling options as-is and keep the layout as full. Give it any name, like Hackathon.
 
-Turn on your TRMNL. Now, the image on it should update to the plugin you created. The dashboard view will update with and only with the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
+Turn on your TRMNL and press the reset button. Now, the image on it should update to the plugin you created. The dashboard view will update with and only with the device. For previewing a plugin, use `trmnlp` or the preview button on the plugin page.
 
 ![The dashboard view](images/applied.png)
 
@@ -198,11 +207,11 @@ Turn on your TRMNL. Now, the image on it should update to the plugin you created
 
 |          |      |            |
 |----------|------|------------|
-| TRMNL framework | <https://trmnl.com/framework> | Complete documentation by TRMNL on how to design the dashboards + examples |
-| trmnlp | <https://github.com/usetrmnl/trmnlp> | Dev tool we installed earlier |
-| trmnl-liquid | <https://github.com/usetrmnl/trmnl-liquid> | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
-| Liquid docs | <https://shopify.github.io/liquid/> | The base templating language. Loops, conditionals, and filters. |
-| Agent Skills | <https://github.com/usetrmnl/trmnl-agent-skills> | TRMNL's official AI skill |
+| TRMNL framework | [framework] | Complete documentation by TRMNL on how to design the dashboards + examples |
+| trmnlp | [trmnlp] | Dev tool we installed earlier |
+| trmnl-liquid | [trmnl-liquid] | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
+| Liquid docs | [liquid-docs] | The base templating language. Loops, conditionals, and filters. |
+| Agent Skills | [trmnl-agent-skills] | TRMNL's official AI skill |
 
 ### Building plugins with an LLM
 
@@ -215,9 +224,9 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 ## Tips and tricks
 
 - TRMNLs utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
-  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>.
+  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See [trmnl-grayscale].
 - The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
-- Use [serverless transforms](https://help.trmnl.com/en/articles/14130649-serverless) to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform, that Ruby is unsupported and that no external libraries are available (in Python, use `urllib` instead of `requests`)
+- Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
   - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
 - For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`.
 
@@ -232,3 +241,18 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 | Templating language | | Markup language with control structures. Usually directly transpiles to another markup language, often HTML |
 | Jason | JSON | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
+[trmnl-server]: <https://trmnl.hpi.church>
+[trmnl-plugins]: <https://trmnl.hpi.church/plugins>
+[rubyinstaller]: <https://rubyinstaller.org>
+[localhost]: <http://localhost:4567>
+[Webhooks]: <https://docs.trmnl.com/go/private-plugins/webhooks>
+[shared-liquid]: <https://trmnl.com/blog/private-plugin-shared-markup>
+[hackernews-api]: <https://github.com/hackernews/api>
+[hn-topstories]: <https://hacker-news.firebaseio.com/v0/topstories.json>
+[trmnlp]: <https://github.com/usetrmnl/trmnlp>
+[liquid-docs]: <https://shopify.github.io/liquid/>
+[trmnl-agent-skills]: <https://github.com/usetrmnl/trmnl-agent-skills>
+[trmnl-grayscale]: <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>
+[trmnl-serverless]: <https://help.trmnl.com/en/articles/14130649-serverless>
+[trmnl-liquid]: <https://github.com/usetrmnl/trmnl-liquid>
+[framework]: <https://trmnl.com/framework>
