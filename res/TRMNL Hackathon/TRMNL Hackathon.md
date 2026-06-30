@@ -6,13 +6,37 @@ We assume you know how to use a terminal (as in, the command line). If you're on
 
 ## Assembling your device
 
+![Your Kit](images/build_0.jpg)
+
 1. Watch [this video][assembly-video] until 0:29 and follow the steps. (Remove protective film, connect ribbon cable to PCB)
+
+![Yours should look like this](images/build_1.jpg)
+
 2. Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
+
+![Make sure it snaps in](images/build_4.jpg)
+
 3. We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place.
+
+![Screwing](images/build_5.jpg)
+
 4. Check if it sits right by trying to flip the switch on the backside of the backplate. If it sits too flush, it doesn't sit properly.
-5. If not done already, put the display into the frame.
+5. Put the display into the frame.
+
+![Placing the display into the frame](images/build_7.jpg)
+
 6. Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
-7. Almost done! Now you just need to slide the stand onto the back and you are ready to go. Well done :)
+
+![Closing the Case](images/build_8.jpg)
+
+7. Almost done! Now you just need to slide the stand onto the back.
+
+![Sliding the Prism onto the case](images/build_9.jpg)
+
+8. An you are ready to go. 
+
+![Well Done!](images/build_10.jpg)
+
 
 ## Getting started with your device
 
@@ -293,4 +317,4 @@ Just push all your changes to to your fork of the `trmnl-plugin` repo and make a
 [trmnl-serverless]: https://help.trmnl.com/en/articles/14130649-serverless
 [trmnl-liquid]: https://github.com/usetrmnl/trmnl-liquid
 [framework]: https://trmnl.com/framework
-[assembly-video]: https://github.com/oskardotglobal/dbs-ex4
+[assembly-video]: https://youtu.be/Z64FDqIaKpg
