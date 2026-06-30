@@ -40,6 +40,9 @@ After registering your device, click on your profile in the top right and head t
 
 ## Development setup
 
+First fork the repo [trmnl-plugins](https://github.com/spark-hpi/trmnl-plugins) and clone the fork into a repo of your choice.
+(it will be used to gather all plugins)
+
 We're going to be developing plugins using `trmnlp`. To get started, you need to install Ruby 4 on your machine. It may be already installed on your system.
 
 Try running
@@ -55,6 +58,9 @@ After installing, the `gem` command (the Ruby package manager) should become ava
 ```sh
 gem install trmnl_preview
 ```
+
+> [!INFO] Build Failed Fedora
+> If this fails to to build the extension (ERROR: Failed to build gem native extension). Try to install additional `C/C++` libraries like `build-essentials` on Debian/Ubuntu or the additional dev package on fedora (`ruby-devel`)
 
 which will install the development tool we need. Now, log in using the token we created earlier. Run
 
@@ -73,6 +79,10 @@ To begin building your plugin, we will first initialize a project using `trmnlp`
 ```sh
 trmnlp init your-brand-new-plugin
 ```
+
+> [!WARNING] IMPORTANT
+> Delete the `.git` folder _in the newly created folder_ (`your-brand-new-plugin`) _NOT_ the `.git` folder in the `trmnl-plugins` folder!
+> If not done, it will cause problems later on.
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
@@ -252,6 +262,11 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
   - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
 - For Home Assistant or other polled APIs, put the token in `polling_headers` as `Authorization: Bearer <TOKEN>`.
 
+## How to submit your plugin
+
+If you are done developing please submit your plugin! (Only submitted plugins will be respected in the ranking)
+Just push all your changes to to your fork of the `trmnl-plugin` repo and make a Pull Request from your fork, back to the main `trmnl-plugin` repo.
+
 ## Glossary
 
 | Term                  | Acronym | Definition                                                                                                                         |
@@ -263,19 +278,19 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 | Templating language   |         | Markup language with control structures. Usually directly transpiles to another markup language, often HTML                        |
 | Jason                 | JSON    | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
-[trmnl-server]: <https://trmnl.hpi.church>
-[trmnl-plugins]: <https://trmnl.hpi.church/plugins>
-[rubyinstaller]: <https://rubyinstaller.org>
-[localhost]: <http://localhost:4567>
-[Webhooks]: <https://docs.trmnl.com/go/private-plugins/webhooks>
-[shared-liquid]: <https://trmnl.com/blog/private-plugin-shared-markup>
-[hackernews-api]: <https://github.com/hackernews/api>
-[hn-topstories]: <https://hacker-news.firebaseio.com/v0/topstories.json>
-[trmnlp]: <https://github.com/usetrmnl/trmnlp>
-[liquid-docs]: <https://shopify.github.io/liquid/>
-[trmnl-agent-skills]: <https://github.com/usetrmnl/trmnl-agent-skills>
-[trmnl-grayscale]: <https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework>
-[trmnl-serverless]: <https://help.trmnl.com/en/articles/14130649-serverless>
-[trmnl-liquid]: <https://github.com/usetrmnl/trmnl-liquid>
-[framework]: <https://trmnl.com/framework>
-[assembly-video]: <https://github.com/oskardotglobal/dbs-ex4>
+[trmnl-server]: https://trmnl.hpi.church
+[trmnl-plugins]: https://trmnl.hpi.church/plugins
+[rubyinstaller]: https://rubyinstaller.org
+[localhost]: http://localhost:4567
+[Webhooks]: https://docs.trmnl.com/go/private-plugins/webhooks
+[shared-liquid]: https://trmnl.com/blog/private-plugin-shared-markup
+[hackernews-api]: https://github.com/hackernews/api
+[hn-topstories]: https://hacker-news.firebaseio.com/v0/topstories.json
+[trmnlp]: https://github.com/usetrmnl/trmnlp
+[liquid-docs]: https://shopify.github.io/liquid/
+[trmnl-agent-skills]: https://github.com/usetrmnl/trmnl-agent-skills
+[trmnl-grayscale]: https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework
+[trmnl-serverless]: https://help.trmnl.com/en/articles/14130649-serverless
+[trmnl-liquid]: https://github.com/usetrmnl/trmnl-liquid
+[framework]: https://trmnl.com/framework
+[assembly-video]: https://github.com/oskardotglobal/dbs-ex4
