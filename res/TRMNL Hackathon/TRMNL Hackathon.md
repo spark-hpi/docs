@@ -33,14 +33,13 @@ We assume you know how to use a terminal (as in, the command line) and Git/GitHu
 
 ![Sliding the Prism onto the case](images/build_9.jpg)
 
-8. And you are ready to go. 
+8. And you are ready to go.
 
 ![Well Done!](images/build_10.jpg)
 
-
 ## Getting started with your device
 
-First, go to https://trmnl.hpi.church in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
+First, go to <https://trmnl.hpi.church> in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
 
 ![Register page](images/register.png)
 
@@ -54,13 +53,13 @@ Once approved, log in again. You will now be able to register a device.
 
 The device should display a "Friendly ID". Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-\<YOUR_FRIENDLY_ID\> wifi. Connect to it.
 
-A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter https://trmnl.hpi.church into the field (do not skip the "https://"!).
+A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter <https://trmnl.hpi.church> into the field (do not skip the "https://"!).
 
 Scroll down and click on Save, then Back to wifi. Now, look for the TRMNL Public SSID and enter the password (it will be written somewhere in the room). Then click Connect.
 
 After some time, the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
 
-Now, open https://trmnl.hpi.church again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
+Now, open <https://trmnl.hpi.church> again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
 
 After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
 
