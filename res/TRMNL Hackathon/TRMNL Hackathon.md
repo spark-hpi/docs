@@ -82,7 +82,7 @@ After installing, the `gem` command (the Ruby package manager) should become ava
 gem install trmnl_preview
 ```
 
-which will install the development tool we need. 
+which will install the development tool we need.
 
 > [!INFO] Build failed
 > If this fails with "ERROR: Failed to build gem native extension", you might need additional C/C++ compiler tooling. On Deb-based distros, try installing `build-essential`. On RPM-based distros, try installing `ruby-devel`. On macOS, you might need the Command Line Developer tools.
@@ -105,8 +105,7 @@ To begin building your plugin, we will first initialize a project using `trmnlp`
 trmnlp init your-brand-new-plugin
 ```
 
-which will create a plugin in `your-brand-new-plugin/`. 
-
+which will create a plugin in `your-brand-new-plugin/`.
 
 > [!WARNING] IMPORTANT
 > Delete the `.git` folder _in the newly created folder_ (`your-brand-new-plugin`), _NOT_ the `.git` folder in the `trmnl-plugins` folder!
