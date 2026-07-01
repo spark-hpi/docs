@@ -60,7 +60,13 @@ After some time, the device should display a rather big TRMNL logo. If not, try 
 
 Now, open <https://trmnl.hpi.church> again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
 
-After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
+After registering your device, click on your profile in the top right and head to Settings -> API Tokens.
+
+![The api tokens menu](images/api-tokens-page.png)
+
+Generate a token named "trmnlp" and set it aside.
+
+![Creating an API token](images/api-tokens-confirm.png)
 
 ## Development setup
 
