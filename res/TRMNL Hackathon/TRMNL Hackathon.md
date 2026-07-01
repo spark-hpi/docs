@@ -8,15 +8,15 @@ We assume you know how to use a terminal (as in, the command line) and Git/GitHu
 
 ![Your Kit](images/build_0.jpg)
 
-Watch [this video][assembly-video] until 0:29 and follow the steps: Remove the protective film and connect ribbon cable to PCB. Be careful! If the ribbon cable breaks, you are royally fucked.
+Watch [this video][assembly-video] until 0:29 and follow the steps: Remove the protective film and connect ribbon cable to PCB. Be careful! If the ribbon cable breaks, you are royally fucked. If you are having issues, watch [this video](https://www.youtube.com/watch?v=dQw4w9WgXcQ).
 
 ![Yours should look like this](images/build_1.jpg)
 
-Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
+Press the PCB into the backplate until it snaps in. Hold the backplate in your hand: if it were to lay on the table, the USB-C connector would push the PCB up.
 
 ![Make sure it snaps in](images/build_4.jpg)
 
-We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place.
+We have three holes but only one screw. Screw the PCB into the hole next to the USB-C connector, so it sits firmly in place.
 
 ![Screwing](images/build_5.jpg)
 
@@ -24,11 +24,11 @@ Check if it sits right by trying to flip the switch on the backside of the backp
 
 ![Placing the display into the frame](images/build_7.jpg)
 
-Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
+Close the case by aligning the backplate with the indents on the lower side of the frame and then pressing it shut.
 
 ![Closing the Case](images/build_8.jpg)
 
-Almost done! Now, you just need to slide the stand onto the back.
+Almost done! Now, you still need to slide the stand onto the back.
 
 ![Sliding the Prism onto the case](images/build_9.jpg)
 
@@ -60,6 +60,8 @@ After some time, the device should display a rather big TRMNL logo. If not, try 
 
 Now, open <https://trmnl.hpi.church> again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
 
+
+
 After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
 
 ## Development setup
@@ -74,7 +76,7 @@ Try running
 ruby -v
 ```
 
-to see whether you have Ruby installed. If this returns version 4, you're done, otherwise install it using your package manager. If you're on Windows, use [rubyinstaller] (the non-devkit version).
+to see whether you have Ruby installed. If this returns version 4, you're done; otherwise, install it using your package manager. If you're on Windows, use [rubyinstaller] (the non-devkit version).
 
 After installing, the `gem` command (the Ruby package manager) should become available. Run
 
@@ -137,7 +139,7 @@ and open the URL it prints (<http://localhost:4567>) in your browser. This will 
 
 ![Preview rendered by trmnlp](images/preview.png)
 
-Just keep this running and check it after changes for when we continue to edit our example plugin. But for now, let's take a step back and look at what a plugin actually contains.
+Keep this running and check it after changes for when we continue to edit our example plugin. But for now, let's take a step back and look at what a plugin actually contains.
 
 ### Anatomy of a plugin
 
@@ -147,7 +149,7 @@ A plugin consists of up to 6-7 files: the `settings.yml`, a [transform file][trm
 - Polling, where JSON data is fetched from an API and optionally edited by a serverless function
 - [Webhooks], where data is pushed to the server from an external service
 
-The template files are Liquid templates outputting HTML organized by different layouts. We will be focusing on the `full.liquid` file used when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
+The `.liquid` files are templates outputting HTML, organized by different layouts. We will be focusing on the `full.liquid` file used when your plugin fills the entire device's screen. Additionally, you can share code between templates using the [`shared.liquid`][shared-liquid].
 
 ![Example of split views](images/split.png)
 
@@ -155,7 +157,7 @@ The template files are Liquid templates outputting HTML organized by different l
 
 > Note: This part of the guide is mostly to help understand the plugins, you do not have to follow along if you do not want to, but it may help.
 
-Now, we will walk through building an actual plugin which polls data from Hacker News, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the times, a `div.title_bar` (the bottom bar). We will start with this code snippet for `full.liquid`:
+Now, we will walk through building an actual plugin which polls data from Hacker News, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the time, a `div.title_bar` (the bottom bar). We will start with this code snippet for `full.liquid`:
 
 ```html
 <div class="view view--{{ size }}">
@@ -170,7 +172,7 @@ Now, we will walk through building an actual plugin which polls data from Hacker
 </div>
 ```
 
-This template already contains a variable, `fetched_count`. Liquid expressions are fenced in `{{ }}` or `{% %}`, depending on the expression. To render this, we need to specify some data. Let's take a look at what [our example API][hackernews-api] gives us:
+This template already contains a variable, `fetched_count`. Liquid expressions are surrounded by `{{ }}` or `{% %}`, depending on the expression. To render this, we need to specify some data. Let's take a look at what [our example API][hackernews-api] gives us:
 
 > **New, Top and Best Stories**  
 > Up to 500 top and new stories are at `/v0/topstories` (also contains jobs) and `/v0/newstories`. Best stories are at `/v0/beststories`.
@@ -180,7 +182,7 @@ This template already contains a variable, `fetched_count`. Liquid expressions a
 > [9128264, 9127792, 9129248, 9127092, 9128367, ..., 9038733]
 > ```
 
-That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a set list of URLs to query inside Larapaper. To circumvent this, we can use a ["serverless transform"][trmnl-serverless]: an arbitrary function in Python, JS or PHP which runs on the server, like a poor man's AWS Lambda.
+That doesn't help too much, because we can't do anything with these IDs yet. Querying `/v0/item/<id>` would help, but we can specify only a fixed list of URLs to query inside Larapaper. To circumvent this, we can use a ["serverless transform"][trmnl-serverless]: an arbitrary function in Python, JS, or PHP which runs on the server, like a poor man's AWS Lambda.
 
 First, let's configure our plugin. In `src/settings.yml`, update the following keys:
 
@@ -266,7 +268,7 @@ Turn on your TRMNL and press the reset button. Now, the image on it should updat
 
 ## Resources and references
 
-There are existing catalogues of so-called "Recipes". These are just published plugins you can download.
+There are existing catalogues of so-called "Recipes". These are published plugins you can download.
 Use these as inspiration, but keep in mind that if you clone an existing plugin (which is totally fine!) you will not be selected as a winner.
 
 | Resource         | URL                  |                                                                                  |
@@ -285,12 +287,12 @@ If you're using an AI assistant to write your plugin, you should use the agent s
 
 See the agents skill repo above for installation instructions. If your harness is unsupported, copy all files in `skills/trmnl/references` directly to your repository and instruct your agent to read it.
 
-If you are asked about configuring an MCP server then refuse; the MCP server is part of trmnl.com and not available with BYOS deployments.
+If your agent asks about configuring an MCP server then refuse; the MCP server is part of trmnl.com and not available with BYOS deployments.
 
 ## Tips and tricks
 
 - TRMNL's utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
-  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See the [TRMNL help article about grayscale].
+  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colours. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See the [TRMNL help article about grayscale].
 - The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
 - Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
   - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
@@ -298,15 +300,15 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 
 ## How to submit your plugin
 
-If you are done developing please submit your plugin! (Only submitted plugins will be respected in the voting)
+Once you are done developing, please submit your plugin! Only submitted plugins will be respected in the voting.
 
-Just push all your changes to your fork of the `trmnl-plugins` repo and create a Pull Request from your fork, back to the main `trmnl-plugin` repo. If you do not know how, please ask.
+Push all your changes to your fork of the `trmnl-plugins` repo and create a Pull Request from your fork, back to the main `trmnl-plugins` repo. If you do not know how, please ask.
 
 ## Glossary
 
 | Term                  | Acronym | Definition                                                                                                                         |
 | --------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| Dithering             |         | Noise filter used to create an illusion of more color depth                                                                        |
+| Dithering             |         | Noise filter used to create an illusion of more colour depth                                                                       |
 | Build your own server | BYOS    | Term used by TRMNL to describe self-hostable open-source servers compatible with their devices                                     |
 | Larapaper             |         | BYOS server written in Laravel, which is what we're using for this hackathon                                                       |
 | Liquid                |         | Templating language used by plugins                                                                                                |
