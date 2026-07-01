@@ -2,7 +2,7 @@ We are hosting a hackathon together with TRMNL where we develop new open source 
 
 ## Prerequisites
 
-We assume you know how to use a terminal (as in, the command line). If you're on Windows, please use WSL if possible. If you have questions about anything, please ask.
+We assume you know how to use a terminal (as in, the command line) and Git/GitHub. If you're on Windows, please use WSL if possible. If you have questions about anything, please ask.
 
 ## Assembling your device
 
@@ -40,7 +40,7 @@ We assume you know how to use a terminal (as in, the command line). If you're on
 
 ## Getting started with your device
 
-First, go to [trmnl-server] in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
+First, go to https://trmnl.hpi.church in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
 
 ![Register page](images/register.png)
 
@@ -52,7 +52,7 @@ Once approved, log in again. You will now be able to register a device.
 
 ### Setting up your TRMNL
 
-The device should display a "Friendly ID". Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-YOUR_FRIENDLY_ID wifi. Connect to it.
+The device should display a "Friendly ID". Note it somewhere, you'll need it. Go into your wifi settings (easier on your phone) and look for the TRMNL-\<YOUR_FRIENDLY_ID\> wifi. Connect to it.
 
 A captive portal should open. Scroll down and click on Advanced, then on Custom URL. Click Yes and enter https://trmnl.hpi.church into the field (do not skip the "https://"!).
 
@@ -60,7 +60,7 @@ Scroll down and click on Save, then Back to wifi. Now, look for the TRMNL Public
 
 After some time, the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
 
-Now, open [trmnl-server] again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
+Now, open https://trmnl.hpi.church again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
 
 After registering your device, click on your profile in the top right and head to Settings -> API Tokens. Generate a token named "trmnlp" and set it aside.
 
@@ -98,17 +98,7 @@ then paste the token and hit Enter.
 
 ![Shell showing the output of last four commands](images/trmnlp-setup.png)
 
-## Building your first plugin
-
-### Inspirational Sources
-
-There are existing catalogues of so called "Recipes". These are just published plugins you can download.
-
-| Catalogue type        | Link |
-| --------------------- | ------- | 
-| TRMNL's official catalogue | [trmnl recipes]      | 
-| Open Source catalogue | [OSS recipes] |
-
+## Scaffolding your first plugin
 
 To begin building your plugin, we will first initialize a project using `trmnlp`. Change into any directory, then run
 
@@ -273,13 +263,19 @@ Turn on your TRMNL and press the reset button. Now, the image on it should updat
 
 ## Resources and references
 
-|                 |                      |                                                                                  |
-| --------------- | -------------------- | -------------------------------------------------------------------------------- |
-| TRMNL framework | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
-| trmnlp          | [trmnlp]             | Dev tool we installed earlier                                                    |
-| trmnl-liquid    | [trmnl-liquid]       | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
-| Liquid docs     | [liquid-docs]        | The base templating language. Loops, conditionals, and filters.                  |
-| Agent Skills    | [trmnl-agent-skills] | TRMNL's official AI skill                                                        |
+There are existing catalogues of so-called "Recipes". These are just published plugins you can download.
+Use these as inspiration, but keep in mind that if you clone an existing plugin (which is totally fine!) you will not be selected as a winner.
+
+|                  |                      |                                                                                  |
+| ---------------- | -------------------- | -------------------------------------------------------------------------------- |
+| Recipe catalogue | [trmnl recipes]      | Official catalogue of community plugins                                          |
+| OSS catalogue    | [OSS recipes]        | Community catalogue of open-source plugins                                       |
+| TRMNL framework  | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
+| TRMNL framework  | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
+| trmnlp           | [trmnlp]             | Dev tool we installed earlier                                                    |
+| trmnl-liquid     | [trmnl-liquid]       | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
+| Liquid docs      | [liquid-docs]        | The base templating language. Loops, conditionals, and filters.                  |
+| Agent Skills     | [trmnl-agent-skills] | TRMNL's official AI skill                                                        |
 
 ### Building plugins with an LLM
 
@@ -314,7 +310,6 @@ Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pu
 | Templating language   |         | Markup language with control structures. Usually directly transpiles to another markup language, often HTML                        |
 | Jason                 | JSON    | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
-[trmnl-server]: https://trmnl.hpi.church
 [trmnl-plugins]: https://trmnl.hpi.church/plugins
 [rubyinstaller]: https://rubyinstaller.org
 [localhost]: http://localhost:4567

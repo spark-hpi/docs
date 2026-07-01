@@ -1,4 +1,5 @@
 /.direnv
 /.envrc
 /.helix
+.DS_Store
 
