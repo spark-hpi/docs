@@ -1,0 +1,6 @@
+- Alarm which requires walking to another room (where the TRMNL is) and scanning the QR code on it to turn it off
+- Public transit departures with walking time
+- Tamagochi based on a soil moisture sensor inside Home Assistant to incentivize keeping your plants alive
+- Countdown to next meeting, deadline or exam
+- Hallway dashboard with chores shared between roommates and their assignees
+- Mensa dashboard for either exclusively Griebnitzsee/Filmuni/Campus Kitchen or a comparison between all three
