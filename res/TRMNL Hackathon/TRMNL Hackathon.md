@@ -8,36 +8,35 @@ We assume you know how to use a terminal (as in, the command line) and Git/GitHu
 
 ![Your Kit](images/build_0.jpg)
 
-1. Watch [this video][assembly-video] until 0:29 and follow the steps. (Remove protective film, connect ribbon cable to PCB)
+Watch [this video][assembly-video] until 0:29 and follow the steps: Remove the protective film and connect ribbon cable to PCB. Be careful! If the ribbon cable breaks, you are royally fucked.
 
 ![Yours should look like this](images/build_1.jpg)
 
-2. Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
+Press the PCB into the backplate until it snaps in. Hold the backplate in your hand, if it is lying on the table, the USB-C connector will push the PCB up.
 
 ![Make sure it snaps in](images/build_4.jpg)
 
-3. We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place.
+We have three holes but only one screw. Screw it with the corresponding hex bit into the hole next to the USB-C Connector, so it sits firmly in place.
 
 ![Screwing](images/build_5.jpg)
 
-4. Check if it sits right by trying to flip the switch on the backside of the backplate. If you can't flip it with your fingernail, it doesn't sit properly.
-5. Put the display into the frame.
+Check if it sits right by trying to flip the switch on the backside of the backplate. If you can't flip it with your fingernail, it doesn't sit properly. Then, put the display into the frame.
 
 ![Placing the display into the frame](images/build_7.jpg)
 
-6. Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
+Close the case by aligning the back plate with the indents on the lower side of the frame and then pressing it shut.
 
 ![Closing the Case](images/build_8.jpg)
 
-7. Almost done! Now you just need to slide the stand onto the back.
+Almost done! Now, you just need to slide the stand onto the back.
 
 ![Sliding the Prism onto the case](images/build_9.jpg)
 
-8. And you are ready to go.
+And just like that, you are ready to go.
 
 ![Well Done!](images/build_10.jpg)
 
-## Getting started with your device
+## Getting started with the software
 
 First, go to <https://trmnl.hpi.church> in your browser and click "Sign up". Use any email (it doesn't have to exist) and a secure password.
 
@@ -65,8 +64,7 @@ After registering your device, click on your profile in the top right and head t
 
 ## Development setup
 
-First fork the repo [trmnl-plugins](https://github.com/spark-hpi/trmnl-plugins) and clone the fork into a repo of your choice.
-(it will be used to gather all plugins)
+First fork the repo [trmnl-plugins] and clone the fork into a folder of your choice. It will be used to gather all submissions later.
 
 We're going to be developing plugins using `trmnlp`. To get started, you need to install Ruby 4 on your machine. It may be already installed on your system.
 
@@ -84,10 +82,12 @@ After installing, the `gem` command (the Ruby package manager) should become ava
 gem install trmnl_preview
 ```
 
-> [!INFO] Build Failed Fedora
-> If this fails to build the extension (ERROR: Failed to build gem native extension). Try to install additional `C/C++` libraries like `build-essentials` on Debian/Ubuntu or the additional dev package on fedora (`ruby-devel`)
+which will install the development tool we need. 
 
-which will install the development tool we need. Now, log in using the token we created earlier. Run
+> [!INFO] Build failed
+> If this fails with "ERROR: Failed to build gem native extension", you might need additional C/C++ compiler tooling. On Deb-based distros, try installing `build-essential`. On RPM-based distros, try installing `ruby-devel`. On macOS, you might need the Command Line Developer tools.
+
+Now, log in using the token we created earlier. Run
 
 ```sh
 trmnlp login --server https://trmnl.hpi.church
@@ -105,13 +105,18 @@ To begin building your plugin, we will first initialize a project using `trmnlp`
 trmnlp init your-brand-new-plugin
 ```
 
+which will create a plugin in `your-brand-new-plugin/`. 
+
+
 > [!WARNING] IMPORTANT
-> Delete the `.git` folder _in the newly created folder_ (`your-brand-new-plugin`) _NOT_ the `.git` folder in the `trmnl-plugins` folder!
-> If not done, it will cause problems later on.
+> Delete the `.git` folder _in the newly created folder_ (`your-brand-new-plugin`), _NOT_ the `.git` folder in the `trmnl-plugins` folder!
+> If you skip this, it will cause problems later on.
+
+Open the new directory in your editor and edit `src/settings.yml`.
 
 ![Terminal open with plugin file list and settings.yml](images/plugin-skeleton.png)
 
-which will create a plugin in `your-brand-new-plugin/`. Open the new directory in your editor and edit `src/settings.yml`. Update the line that says
+Update the line that says
 
 ```yml
 name: My Plugin
@@ -129,7 +134,7 @@ Then, run
 trmnlp serve
 ```
 
-and open the URL it prints ([localhost]) in your browser. This will preview your plugin inside the browser and update as you change it. For example, try changing the "Hello, TRMNL!" inside `src/full.liquid` to "Hello, TRMNL x Spark!".
+and open the URL it prints (<http://localhost:4567>) in your browser. This will preview your plugin inside the browser and update as you change it. For example, try changing the "Hello, TRMNL!" inside `src/full.liquid` to "Hello, TRMNL x Spark!".
 
 ![Preview rendered by trmnlp](images/preview.png)
 
@@ -153,7 +158,7 @@ The template files are Liquid templates outputting HTML organized by different l
 
 Now, we will walk through building an actual plugin which polls data from Hacker News, based on the `trmnlp` example plugin. On the top level, a TRMNL liquid template consists of two `div`s; a `div.view` containing a `div.layout` (the content) and most of the times, a `div.title_bar` (the bottom bar). We will start with this code snippet for `full.liquid`:
 
-```liquid
+```html
 <div class="view view--{{ size }}">
 <div class="layout">
 
@@ -216,7 +221,7 @@ def run(input):
 
 This takes in the initial response (`input["data"]`) and turns it into a list of JSON objects, as well as the `fetched_count` we used earlier. Now, we can update our template to iterate over `stories`. Inside the layout `div` from earlier, insert
 
-```liquid
+```html
 <div class="grid grid--cols-1 gap--small">
   {% for story in stories %}
     <div class="item">
@@ -242,7 +247,7 @@ Once you're done with your changes, run
 trmnlp push
 ```
 
-which will upload the plugin to the server. Now, you should be able to see your plugin at [trmnl-plugins] (alternatively, open the URL `trmnlp push` printed):
+which will upload the plugin to the server. Now, you should be able to see your plugin at <https://trmnl.hpi.church> (alternatively, open the URL `trmnlp push` printed):
 
 ![The plugin overview page](images/plugins.png)
 
@@ -265,15 +270,14 @@ Turn on your TRMNL and press the reset button. Now, the image on it should updat
 There are existing catalogues of so-called "Recipes". These are just published plugins you can download.
 Use these as inspiration, but keep in mind that if you clone an existing plugin (which is totally fine!) you will not be selected as a winner.
 
-|                  |                      |                                                                                  |
+| Resource         | URL                  |                                                                                  |
 | ---------------- | -------------------- | -------------------------------------------------------------------------------- |
 | Recipe catalogue | [trmnl recipes]      | Official catalogue of community plugins                                          |
 | OSS catalogue    | [OSS recipes]        | Community catalogue of open-source plugins                                       |
 | TRMNL framework  | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
-| TRMNL framework  | [framework]          | Complete documentation by TRMNL on how to design the dashboards + examples       |
 | trmnlp           | [trmnlp]             | Dev tool we installed earlier                                                    |
 | trmnl-liquid     | [trmnl-liquid]       | TRMNL's custom Liquid filters and tags (date and currency formatting, and more). |
-| Liquid docs      | [liquid-docs]        | The base templating language. Loops, conditionals, and filters.                  |
+| Liquid docs      | [liquid-docs]        | The base templating language: Loops, conditionals, and filters.                  |
 | Agent Skills     | [trmnl-agent-skills] | TRMNL's official AI skill                                                        |
 
 ### Building plugins with an LLM
@@ -287,7 +291,7 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 ## Tips and tricks
 
 - TRMNL's utility classes might look like Tailwind, but they are not. Tailwind classes will be ignored.
-  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See [trmnl-grayscale].
+  - Use the framework's grayscale classes (`bg--black`, `bg--gray-60`, `bg--gray-30`, `bg--white`) instead of hex colors. The panels here are 2-bit (4 shades of gray); the framework also handles 1-bit and 4-bit devices and falls back via dithering. See the [TRMNL help article about grayscale].
 - The HTML output rendered by `trmnlp serve` is not entirely accurate, you can turn on a more accurate but slower PNG output in the top bar. This requires imagemagick to be installed globally.
 - Use [serverless transforms][trmnl-serverless] to modify incoming API data if needed. Please note that runtime is restricted to 30s per transform and that Ruby is unsupported. For JS, ensure to `export` the run function.
   - When testing with `trmnlp`, transforms require the appropriate interpreter to be installed.
@@ -296,7 +300,8 @@ If you are asked about configuring an MCP server then refuse; the MCP server is 
 ## How to submit your plugin
 
 If you are done developing please submit your plugin! (Only submitted plugins will be respected in the voting)
-Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pull Request from your fork, back to the main `trmnl-plugin` repo.
+
+Just push all your changes to your fork of the `trmnl-plugins` repo and create a Pull Request from your fork, back to the main `trmnl-plugin` repo. If you do not know how, please ask.
 
 ## Glossary
 
@@ -309,9 +314,12 @@ Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pu
 | Templating language   |         | Markup language with control structures. Usually directly transpiles to another markup language, often HTML                        |
 | Jason                 | JSON    | Ex-Google engineer who invented a markup language for structured data, named after his online handle @json. Died of ligma in 2012. |
 
-[trmnl-plugins]: https://trmnl.hpi.church/plugins
+## Legal
+
+Entrants retain ownership of all intellectual and industrial property rights (including moral rights) in and to submissions. However, you agree to license your contribution as free and open-source software under the terms of the [European Union Public License][eupl], a GPL-compatible copyleft license. If you don't know what that means, then you probably don't have to worry about it. If you take issue with this, please talk to us.
+
+[trmnl-plugins]: https://github.com/spark-hpi/trmnl-plugins
 [rubyinstaller]: https://rubyinstaller.org
-[localhost]: http://localhost:4567
 [Webhooks]: https://docs.trmnl.com/go/private-plugins/webhooks
 [shared-liquid]: https://trmnl.com/blog/private-plugin-shared-markup
 [hackernews-api]: https://github.com/hackernews/api
@@ -319,10 +327,11 @@ Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pu
 [trmnlp]: https://github.com/usetrmnl/trmnlp
 [liquid-docs]: https://shopify.github.io/liquid/
 [trmnl-agent-skills]: https://github.com/usetrmnl/trmnl-agent-skills
-[trmnl-grayscale]: https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework
+[TRMNL help article about grayscale]: https://help.trmnl.com/en/articles/12386214-grayscale-1-bit-2-bit-4-bit-in-framework
 [trmnl-serverless]: https://help.trmnl.com/en/articles/14130649-serverless
 [trmnl-liquid]: https://github.com/usetrmnl/trmnl-liquid
 [framework]: https://trmnl.com/framework
 [assembly-video]: https://youtu.be/Z64FDqIaKpg
 [trmnl recipes]: https://trmnl.com/recipes
 [OSS recipes]: https://bnussbau.github.io/trmnl-recipe-catalog/
+[eupl]: https://eupl.eu
