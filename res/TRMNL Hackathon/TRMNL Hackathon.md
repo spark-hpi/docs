@@ -100,6 +100,16 @@ then paste the token and hit Enter.
 
 ## Building your first plugin
 
+### Inspirational Sources
+
+There are existing catalogues of so called "Recipes". These are just published plugins you can download.
+
+| Catalogue type        | Link |
+| --------------------- | ------- | 
+| TRMNL's official catalogue | [trmnl recipes]      | 
+| Open Source catalogue | [OSS recipes] |
+
+
 To begin building your plugin, we will first initialize a project using `trmnlp`. Change into any directory, then run
 
 ```sh
@@ -320,3 +330,5 @@ Just push all your changes to your fork of the `trmnl-plugin` repo and make a Pu
 [trmnl-liquid]: https://github.com/usetrmnl/trmnl-liquid
 [framework]: https://trmnl.com/framework
 [assembly-video]: https://youtu.be/Z64FDqIaKpg
+[trmnl recipes]: https://trmnl.com/recipes
+[OSS recipes]: https://bnussbau.github.io/trmnl-recipe-catalog/
