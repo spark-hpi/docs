@@ -58,9 +58,13 @@ Scroll down and click on Save, then Back to wifi. Now, look for the TRMNL Public
 
 After some time, the device should display a rather big TRMNL logo. If not, try pressing the reset button and wait for a bit. If that doesn't help, ask us or people around you for help.
 
-Now, open <https://trmnl.hpi.church> again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon).
+Now, open <https://trmnl.hpi.church> again and go to the Devices section. Find the device with your Friendly ID and rename it to MYNAME's TRMNL (to edit, click the eye icon, then the notebook icon).
 
-After registering your device, click on your profile in the top right and head to Settings -> API Tokens.
+![The devices page](images/devices-list.png)
+
+![Renaming a device](images/device-rename.png)
+
+Scroll down and click the save button. Then, click on your profile in the top right and head to Settings -> API Tokens.
 
 ![The api tokens menu](images/api-tokens-page.png)
 
