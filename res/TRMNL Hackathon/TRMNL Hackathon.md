@@ -134,10 +134,10 @@ name: My Plugin
 to something else, like
 
 ```yml
-name: My amazing plugin!
+name: "Frank's amazing plugin!"
 ```
 
-Then, run
+For the final submission, ensure the plugin name contains your name so that it's recognizable by the admins. Then, run
 
 ```sh
 trmnlp serve
