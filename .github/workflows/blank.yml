@@ -1,0 +1,14 @@
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  mdlint:
+    name: rumdl
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Markdown linting using rumdl
+      - name: rumdl-action
+        uses: rvben/rumdl@v0.2.28
