@@ -12,3 +12,16 @@ jobs:
       # Markdown linting using rumdl
       - name: rumdl-action
         uses: rvben/rumdl@v0.2.28
+  languagetool:
+    name: runner / languagetool
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read          # for checkout
+      pull-requests: write    # for github-pr-review reporter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: reviewdog/action-languagetool@ea19c757470ce0dbfcbc34aec090317cef1ff0b5 # v1.22.0
+        with:
+          github_token: github.token
+          reporter: github-pr-review
+          level: warning
