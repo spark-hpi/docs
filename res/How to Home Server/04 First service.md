@@ -5,7 +5,7 @@ up:
 
 Now that we are all on the same page, we can install our first service: Home Assistant, an all-in-one local smart home solution like Google Home or Apple HomeKit. You can use it to control and automate anything "smart" in your household, via a mobile app or a web interface.
 
-![[phone.png|Home Assistant on Android|200]]
+![[images/phone.png|Home Assistant on Android|200]]
 
 ## Installation
 

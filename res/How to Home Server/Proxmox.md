@@ -14,31 +14,31 @@ Grab a USB stick labelled Proxmox or [download an image](https://proxmox.com/en/
 
 Select "Install Proxmox VE (Graphical)" and hit Enter. Accept the EULA. Proxmox is free and open-source software under the AGPLv3, but there is an enterprise subscription.
 
-![](images/proxmox-install-01.35.png)
+![Proxmox EULA screen](images/proxmox-install-01.35.png)
 
 Now, select your drive. Ensure to select the drive you want to use as a boot drive, you can set up additional drives later. The USB thumb drive you're booting off should not show up here.
 
-![](images/proxmox-install-01.58.png)
+![Proxmox drive selection screen](images/proxmox-install-01.58.png)
 
 The next step is probably self-explanatory.
 
-![](images/proxmox-install-02.16.png)
+![Proxmox timezone and keyboard layout screen](images/proxmox-install-02.16.png)
 
 This step is important. Set up a secure password for the root user (you can change this later) and a valid email (you will receive automated messages from your server like backup failures there).
 
-![](images/proxmox-install-02.26.png)
+![Proxmox root password and email screen](images/proxmox-install-02.26.png)
 
 Then, set up networking. You will have to change this when you take the server home, but for now, it should look like this. Change the hostname from whatever it currently is to a unique one, like `<YOURNAME>-server`. Also ensure to set the DNS server[^1] to a public one, either `1.1.1.1` (Cloudflare) or `9.9.9.9` (quad9, European DNS server)
 
-![](images/proxmox-install-03.14.png)
+![Proxmox network configuration screen](images/proxmox-install-03.14.png)
 
 Now, a summary will show. Ensure the settings are correct (not as in this screenshot though), then click Install.
 
-![](images/proxmox-install-03.57.png)
+![Proxmox installation summary screen](images/proxmox-install-03.57.png)
 
 Your device will now reboot. When it does, unplug the USB stick and wait for the device to fully boot. You should see a screen like this:
 
-![](images/proxmox-install-finished.jpeg)
+![Proxmox boot screen after installation](images/proxmox-install-finished.jpeg)
 
 Enter the URL in your browser and ignore an invalid certificate prompt if shown.
 
@@ -53,7 +53,9 @@ Begin by logging in into Proxmox with the username `root` and the password you s
 
 ## Post-installation maintenance
 
-Before we can continue, we are going to run a postinstall script for some sensible defaults. For that, click on your host in the left tree and on the top bar on the right, click shell. This should open a terminal. We are going to run the "PVE Post Install" script from <https://community-scripts.org/>, a reputable repository of scripts to simplify installation and maintenance of services on Proxmox. You can find the script on <https://community-scripts.org/scripts/post-pve-install>. Run the following command:
+Before we can continue, we are going to run a postinstall script for some sensible defaults. For that, click on your host in the left tree and on the top bar on the right, click shell. This should open a terminal.
+
+We are going to run the "PVE Post Install" script from <https://community-scripts.org/>, a reputable repository of scripts to simplify installation and maintenance of services on Proxmox. You can find the script on <https://community-scripts.org/scripts/post-pve-install>. Run the following command:
 
 ```sh
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/community-scripts/ProxmoxVE/main/tools/pve/post-pve-install.sh)"
@@ -107,7 +109,7 @@ After the update, you are asked to reboot now, you should probably do so.
 
 Wait for the task to finish (last line is "TASK OK"), then close the window:
 
-![](images/proxmox-2.png)
+![Proxmox task log showing TASK OK](images/proxmox-2.png)
 
 ## Create the container
 
@@ -116,31 +118,31 @@ Set the hostname to `docker`, ensure the CT ID is set to 100 and that "Unprivile
 
 Then, paste your public key, located in `<YOUR-USER-PATH>/.ssh/id_ed25515.pub` or `<YOUR-USER-PATH>/.ssh/id_rsa.pub` and click Next. The public key is the whole line, including the `ssh-ed25519` or `ssh-rsa` prefix and the `user@host` at the end of the line, not just the random string inbetween.
 
-![](images/proxmox-create-ct-50.35.png)
+![Create CT public key screen](images/proxmox-create-ct-50.35.png)
 
 Now, select the Debian 13 template you just downloaded and click Next.
 
-![](images/proxmox-create-ct-04.46.png)
+![Create CT template selection screen](images/proxmox-create-ct-04.46.png)
 
 For the disk, enter a capacity of at least 32 GiB:
 
-![](images/proxmox-create-ct-04.55.png)
+![Create CT disk size screen](images/proxmox-create-ct-04.55.png)
 
 For cores, enter 2 or 4 (depending on if you have more than 4 cores):
 
-![](images/proxmox-create-ct-05.23.png)
+![Create CT CPU cores screen](images/proxmox-create-ct-05.23.png)
 
 In the Network tab, check DHCP for IPv4 and IPv6.
 
-![](images/proxmox-create-ct-06.44.png)
+![Create CT network screen](images/proxmox-create-ct-06.44.png)
 
 For DNS, click next.
 
-![](images/proxmox-create-ct-07.34.png)
+![Create CT DNS screen](images/proxmox-create-ct-07.34.png)
 
 Then, ensure "Start after created" is unchecked and click Finish.
 
-![](images/proxmox-create-ct-07.41.png)
+![Create CT confirmation screen](images/proxmox-create-ct-07.41.png)
 
 ## Unfuck the container
 
@@ -164,7 +166,7 @@ This decreases security checks in the LXC, which can clash with Docker trying to
 
 In the right tree, select the newly created LXC and click start.
 
-![[proxmox-install-31.58.png]]
+![[images/proxmox-install-31.58.png|Starting the LXC container]]
 
 Now, you can continue with [[02 Connecting via SSH]].
 
@@ -172,7 +174,7 @@ Now, you can continue with [[02 Connecting via SSH]].
 
 Before you can take your device home, you should change the network configuration so you can just plug it in. In the Proxmox UI. Go to your node on the left, then click Network, select `vmbr0` and click Edit.
 
-![](images/proxmox-take-home.png)
+![Network configuration for taking the device home](images/proxmox-take-home.png)
 
 If your home router is for example 10.0.0.1 with a subnet mask of 255.255.0.0, the router's IP 10.0.0.1 for the gateway and for example 10.0.0.5/16 for the IPv4 (you can select any IP, but the CIDR is based on the subnet mask).
 
@@ -196,6 +198,7 @@ to
 
 Save and exit. You are now ready to shut down the device and plug it in at home. There, it should be reachable on the IP you just set.
 
-[^1]: A DNS server is a service which translates names into IP addresses, for example hpi.de -> 141.89.225.126. This means that even though the DNS server cannot read you do on a specific website or app, it can read that you are using/visiting it. However, we want to use a public DNS resolver (instead of the one provided by the local network). This is because that way you can ensure which one is used instead of relying on whatever the network administrator has configured, which is usually 8.8.8.8, Google's DNS server.
+[^1]: A DNS server is a service which translates names into IP addresses, for example hpi.de -> 141.89.225.126. This means that even though the DNS server cannot read you do on a specific website or app, it can read that you are using/visiting it.
+    However, we want to use a public DNS resolver (instead of the one provided by the local network). This is because that way you can ensure which one is used instead of relying on whatever the network administrator has configured, which is usually 8.8.8.8, Google's DNS server.
 
 [^2]: The realm is where the user is stored. PAM is the default user manager under most Linux systems. This means that there exists a Linux user account for every PAM account. The other realm you can select is Proxmox VE, which means that the user is only valid for Proxmox. However, the default `root` user is always a member of the PAM realm, not of Proxmox VE.

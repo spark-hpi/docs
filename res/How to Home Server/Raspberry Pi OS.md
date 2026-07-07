@@ -8,7 +8,7 @@ Raspberry Pi uses its own optimised version of Debian and offers a separate inst
 
 ## Raspberry Pi Imager
 
-You can download the imager [here](https://www.raspberrypi.com/software/). If you have problems with running the imager, you can download an older, more stable version [here](https://github.com/raspberrypi/rpi-imager/releases/tag/v1.9.6). The older version might differ from this guide but the main steps should be similar.
+You can download [the Raspberry Pi Imager](https://www.raspberrypi.com/software/). If you have problems with running the imager, you can download [an older, more stable version](https://github.com/raspberrypi/rpi-imager/releases/tag/v1.9.6). The older version might differ from this guide but the main steps should be similar.
 
 To flash an SD Card with Debian, do the following:
 
