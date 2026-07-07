@@ -21,95 +21,95 @@ Follow the guide below to install Debian on your machine.
 Use the `RETURN KEY` (In German `ENTER TASTE`) to confirm a selection and the arrow keys to move up/down
 
 ![Debian Installer](images/debian1.png)
-![](images/debian2.png)
+![Lanuage Selection](images/debian2.png)
 
 You can also select German if you want. This simplifies the installation process and you do not have to answer a few of the installation Steps. Just skip the steps in the Guide. We will continue using the English installation process.
 
-![](images/debian3.png)
-![](images/debian4.png)
-![](images/debian5.png)
-![](images/debian6.png)
-![](images/debian7.png)
+![Location selection](images/debian3.png)
+![Location selection Europe](images/debian4.png)
+![Location selection Germany](images/debian5.png)
+![Select locals](images/debian6.png)
+![Select keyboard layout](images/debian7.png)
 
 Select the keyboard you have. If you use an different keyboard layout choose it (for example English). Only keyboards directly connected are affected. If you connect from another PC it will use the layout of the connected PC.
 
-![](images/debian8.png)
+![Load installer components](images/debian8.png)
 
 We'll come across a few of these loading screens. Just wait a bit until you can continue.
 
-![](images/debian9.png)
+![Configure network](images/debian9.png)
 
 The hostname is the 'name' of a device in the network. Unfortunately the network setup of the HPI does not allow to use these across different access points. We will will use the ip instead. Normal home router however does support using these without further configuration. This allows you to use `<HOSTNAME>.local` to connect to your server. This only works if you are in the same network (not outside your home).
 
-![](images/debian10.png)
+![Configure network domain name](images/debian10.png)
 
 You can leave this empty.
 
-![](images/debian11.png)
+![Set up user and password for root](images/debian11.png)
 
 You should choose a secure password. It will be your admin password. If possible use a randomly generated one with more than 8 characters and special characters!
 
-![](images/debian12.png)
+![Set up user and password for user](images/debian12.png)
 
 You do not have to use your real name.
 
-![](images/debian13.png)
+![Username for user](images/debian13.png)
 
 You cannot use capital letters and some special characters. We recommend to choose a short name.
 
-![](images/debian14.png)
+![Password for user](images/debian14.png)
 
 You can set the same password you choose for the admin user.
 
-![](images/debian15.png)
+![Partitioning disc setup](images/debian15.png)
 
 More waiting...
 
-![](images/debian16.png)
+![Partitioning disc options](images/debian16.png)
 
 We will use the entire disk as the boot and system drive.
 
 > [!WARNING] DATA WILL BE DELETED
->Your disk will be reformatted and all data on this disk will be deleted. Backup your disk if you have important data on it!
+> Your disk will be reformatted and all data on this disk will be deleted. Backup your disk if you have important data on it!
 
-![](images/debian17.png)
-![](images/debian18.png)
-![](images/debian19.png)
-![](images/debian20.png)
-![](images/debian21.png)
-![](images/debian22.png)
+![Select disc to format](images/debian17.png)
+![Select to partition the whole disc](images/debian18.png)
+![Write changes to disc](images/debian19.png)
+![Confirm writing to disc](images/debian20.png)
+![Installing base system](images/debian21.png)
+![Configure packagemanager](images/debian22.png)
 
 No, we will use the current USB device.
 
-![](images/debian23.png)
+![Configure packagemanager region](images/debian23.png)
 
 It is recommend to choose a server nearest to you. This will drastically increase update and installation speed. We are currently in Germany, so select Germany. If you move the server to another country you might want to update it later.
 
-![](images/debian24.png)
+![Configure packagemanager server](images/debian24.png)
 
 The package manager uses 'mirrors' to download updates and programs. You can choose a different one but they might have limited download speed. Note that many universities, etc. also host mirrors.
 
-![](images/debian25.png)
+![Configure packagemanager proxy](images/debian25.png)
 
 You can leave this empty.
 
-![](images/debian26.png)
-![](images/debian27.png)
+![Fetching updates](images/debian26.png)
+![Popularity contest](images/debian27.png)
 
 You can choose to participate if you want.
 
-![](images/debian28.png)
+![Select desktop environment](images/debian28.png)
 
 > [!NOTE] Use the `SPACE` Key
 > To change the selection use the arrow keys to move and `SPACE` to select / deselect use `RETURN` to **confirm and continue**
 
-![](images/debian29.png)
-![](images/debian30.png)
+![Install selected software](images/debian29.png)
+![Configure GRUB bootloader](images/debian30.png)
 
 Even if another OS exists, override it. Leaving it install might cause problems later.
 
-![](images/debian31.png)
-![](images/debian32.png)
+![GRUP install location](images/debian31.png)
+![Finished](images/debian32.png)
 
 Now wait until the installation is done. Remove your USB Stick and reboot. Now you should be able to connect via SSH. For that we need the IP of you PC.
 
@@ -119,7 +119,7 @@ After a reboot you will see a terminal prompting you to enter a username and aft
 
 ```text
 SOME TEXT
-HOSTNAME login: <YOUR USERNAME HERE> 
+HOSTNAME login: <YOUR USERNAME HERE>
 ```
 
 After entering your username a password prompt should appear. Enter your password. Be aware that it will **not be visible** for security reasons.
@@ -146,9 +146,9 @@ You should get a prompt like this. (Enter `yes` to accept the fingerprint)
 The authenticity of host '<IP>' can't be established.
 ED25519 key fingerprint is: SHA256:eUXGGm1YGsMAS7vkcx6JOJdOGHPem5gQp4taiCfCLB8
 This key is not known by any other names.
-Are you sure you want to continue connecting (yes/no/[fingerprint])? 
+Are you sure you want to continue connecting (yes/no/[fingerprint])?
 
-<USERNAME>@<IP>'s password: 
+<USERNAME>@<IP>'s password:
 ```
 
 Enter the password you set. Note that it will not be shown when typing. If you log in successfully, you should see an output like
@@ -164,7 +164,7 @@ Debian GNU/Linux comes with ABSOLUTELY NO WARRANTY, to the extent
 permitted by applicable law.
 You have mail.
 Last login: Sat Apr 18 10:00:59 2026 from 100.121.200.236
-<USERNAME>@<IP>:~# 
+<USERNAME>@<IP>:~#
 ```
 
 Now you can switch to the root (admin) user with the command
@@ -177,7 +177,7 @@ Enter the password again. Now the `<USERNAME>` should change to `root`
 
 ## Key Based Authentication
 
-*This step requires you to be root*
+_This step requires you to be root_
 
 In the next steps we will setup root login with ssh keys.
 For that you need your ssh **public** key you created on you **normal PC** (`<YOUR-USER-PATH>/.ssh/id_ed25519.pub`).
