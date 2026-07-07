@@ -25,3 +25,4 @@ jobs:
           github_token: ${{ github.token }}
           reporter: github-pr-review
           level: warning
+          filter_mode: nofilter
