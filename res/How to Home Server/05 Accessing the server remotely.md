@@ -5,7 +5,9 @@ up:
 
 Now, you have a service running. You can do all the Home Assistant things you want. But what happens if you are on the go and want to access Home Assistant? Or if you have set up a different service and need to access it from the go? You could expose the service to the internet, but that's a hassle and also might be dangerous.
 
-Instead, we will use [NetBird](https://netbird.io), a free and open-source German-made mesh VPN, which will allow all devices connected to the mesh to talk to each other. The idea is simple: install NetBird on the server and on your laptop, then you can connect to your server from anywhere. For the purpose of this guide, we will use the forever-free tier of their cloud service, but you can always host your own control server. In the future, we might offer a Spark NetBird server, run by us, potentially on HPI servers.
+Instead, we will use [NetBird](https://netbird.io), a free and open-source German-made mesh VPN, which will allow all devices connected to the mesh to talk to each other. The idea is simple: install NetBird on the server and on your laptop, then you can connect to your server from anywhere.
+
+For the purpose of this guide, we will use the forever-free tier of their cloud service, but you can always host your own control server. In the future, we might offer a Spark NetBird server, run by us, potentially on HPI servers.
 
 Begin by going to <https://app.netbird.io> and creating an account. When prompted, select "peer-to-peer network" as the means of operation. Then, follow the instructions to connect your laptop. When prompted to connect your second device, click "Install with a setup key" and then Continue.
 
