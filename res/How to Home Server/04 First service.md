@@ -48,7 +48,7 @@ services:
     privileged: true
     # Allow access to the host network for device discovery
     # Usually, you wouln't do this either, but for HA we need it
-    # Because we use the host network we do not need to expose container ports 
+    # Because we use the host network we do not need to expose container ports
     network_mode: host
 ```
 
