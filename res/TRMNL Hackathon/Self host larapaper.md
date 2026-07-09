@@ -2,15 +2,15 @@
 
 To self host larapaper with serverless transforms you have to use [our fork](https://github.com/spark-hpi/larapaper) of [larapaper](https://github.com/usetrmnl/larapaper). To deploy it on your server we will once again use [docker compose](../How to Home Server/03 Installing Docker.md).
 
-In this case you need to build the containers from source (the build section in the yml file). This is simply done by running `docker compose up` while in the same directory as the `compose.yml` file but might take a while. Now it should build an run without any problems and only rebuild on changes in the repo.
+We are currently working on merging our fork back into the main repo but this might take a while. Just check for updates on this topic.
 
-`compose.yml`:
+To download and start larapaper just create a `compose.yml` with the following content and run `docker compose up -d`
 
 ```yml
 services:
   larapaper:
     container_name: larapaper
-    build: https://github.com/spark-hpi/larapaper.git#main
+    image: ghcr.io/spark-hpi/larapaper:latest
     ports:
       - "4567:8080"
     environment:
@@ -28,7 +28,7 @@ services:
 
   transform-runner:
     container_name: transform-runner
-    build: https://github.com/spark-hpi/larapaper-serverless-runner.git#slopfest
+    image: ghcr.io/spark-hpi/larapaper-serverless-runner:latest
     security_opt:
       - seccomp=unconfined
       - no-new-privileges=false
