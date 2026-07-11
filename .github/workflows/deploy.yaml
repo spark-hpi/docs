@@ -1,0 +1,24 @@
+name: Trigger Pages Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger build in website repo
+        uses: actions/github-script@v9
+        with:
+          script: |
+            await github.rest.repos.createDispatchEvent({
+              owner: 'spark-hpi',
+              repo: 'website',
+              event_type: 'content-updated',
+              client_payload: {
+                content_repo: '${{ github.repository }}',
+                commit_sha: '${{ github.sha }}',
+                message: 'Content updated, triggering pages build'
+              }
+            });
