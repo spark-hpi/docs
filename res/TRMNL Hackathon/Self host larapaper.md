@@ -1,10 +1,10 @@
 ## Deploy your own Larapaper
 
-To self host larapaper with serverless transforms you have to use [our fork](https://github.com/spark-hpi/larapaper) of [larapaper](https://github.com/usetrmnl/larapaper). To deploy it on your server we will once again use [docker compose](../How to Home Server/03 Installing Docker.md).
+To self-host larapaper with serverless transforms, you have to use [our fork](https://github.com/spark-hpi/larapaper) of [larapaper](https://github.com/usetrmnl/larapaper). We will once again use [docker compose](../How to Home Server/03 Installing Docker.md) for this.
 
-We are currently working on merging our fork back into the main repo but this might take a while. Just check for updates on this topic.
+We are currently working on merging our fork back into the main repo, but this might take a while. Check for updates on this topic.
 
-To download and start larapaper just create a `compose.yml` with the following content and run `docker compose up -d`
+Begin by creating a `compose.yaml` with the following contents:
 
 ```yml
 services:
@@ -14,34 +14,30 @@ services:
     ports:
       - "4567:8080"
     environment:
-      - APP_KEY=base64:zzPXBQPlgn0NHwVBTVG0B//8P/PVwVnBp2gk0ZWR0+k=
+      - APP_KEY=base64:<TODO>
       - PHP_OPCACHE_ENABLE=1
       - TRMNL_PROXY_REFRESH_MINUTES=15
       - DB_DATABASE=database/storage/database.sqlite
       - TRANSFORM_RUNNER_URL=transform-runner:3000
-      - TRANSFORM_TIMEOUT_SECONDS=30
+      # - MULTI_USER_MODE=1 # if you are planning to use larapaper with multiple users
     volumes:
       - database:/var/www/html/database/storage
       - storage:/var/www/html/storage/app/public/images/generated
     restart: unless-stopped
-    #platform: "linux/arm64/v8"
 
   transform-runner:
     container_name: transform-runner
     image: ghcr.io/spark-hpi/larapaper-serverless-runner:latest
-    security_opt:
-      - seccomp=unconfined
-      - no-new-privileges=false
-      - apparmor=unconfined
+    security_opt: [seccomp=unconfined]
     environment:
-      TRANSFORM_TIMEOUT: 30
-      TRANSFORM_MEMORY_LIMIT: 134217728
+      - TRANSFORM_TIMEOUT=30 # maximum time a transform may run
+      - TRANSFORM_MEMORY_LIMIT=134217728 # (128MB) the amount of memory a single transform may use, killed if the limit is exceeded
 
 volumes:
   database:
   storage:
 ```
 
-If you plan to use it in production you need to generate a new `APP_KEY` with `docker exec -it larapaper php artisan key:generate --show` while the container is running.
+Replace `<TODO>` inside the `APP_KEY` with the output of the command `openssl rand -hex 16 | base64`.
 
-For more info read the [readme](https://github.com/spark-hpi/larapaper/blob/main/README.md) and create an issue or pull request if you have questions / improvements!
+For more information, refer to Larapapers [README](https://github.com/spark-hpi/larapaper/blob/main/README.md), create an issue or ask us if you have questions. Pull requests with improvements are also always welcome!
