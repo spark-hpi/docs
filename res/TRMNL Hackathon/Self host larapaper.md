@@ -1,6 +1,6 @@
 ## Deploy your own Larapaper
 
-To self-host larapaper with serverless transforms, you have to use [our fork](https://github.com/spark-hpi/larapaper) of [larapaper](https://github.com/usetrmnl/larapaper). We will once again use [docker compose](../How to Home Server/03 Installing Docker.md) for this.
+To self-host larapaper with serverless transforms, you have to use [our fork](https://github.com/spark-hpi/larapaper) of [larapaper](https://github.com/usetrmnl/larapaper). We will once again use [docker compose](../How%20to%20Home%20Server/03%20Installing%20Docker.md) for this.
 
 We are currently working on merging our fork back into the main repo, but this might take a while. Check for updates on this topic.
 
@@ -32,6 +32,7 @@ services:
     environment:
       - TRANSFORM_TIMEOUT=30 # maximum time a transform may run
       - TRANSFORM_MEMORY_LIMIT=134217728 # (128MB) the amount of memory a single transform may use, killed if the limit is exceeded
+      # - FORCE_HTTPS=1 # if running behind a reverse proxy
 
 volumes:
   database:
