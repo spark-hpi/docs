@@ -5,7 +5,7 @@ We are really happy that you want to contribute. To help you get started, please
 ## Tooling
 
 Please use [rumdl](https://rumdl.dev) to lint and format your markdown. This is also checked in CI.
-Also, spell-check your work using something like <https://languagetool.org/>. Currently, this is not done in CI. 
+Also, spell-check your work using something like <https://languagetool.org/>. Currently, this is not done in CI.
 
 ## Style
 
