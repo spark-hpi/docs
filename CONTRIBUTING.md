@@ -4,12 +4,12 @@ We are really happy that you want to contribute. To help you get started, please
 
 ## Tooling
 
-Please use [rumdl](https://rumdl.dev) to lint and format your markdown. This is also checked in CI.
-Also, spell-check your work using something like <https://languagetool.org/>. Currently, this is not done in CI.
+Please use [rumdl](https://rumdl.dev) to lint and format your Markdown.
+Also, spell-check your work using something like <https://languagetool.org/>. Both of these are also done in CI.
 
 ## Style
 
-Our docs are supposed to be tutorial-like and beginner friendly. For technical details, explain them in the glossary at the bottom of a guide
+Our docs are supposed to be tutorial-like and beginner-friendly. For technical details, explain them in the glossary at the bottom of a guide
 or link to a source, if the reader wants to go down a rabbit hole that's fine. You are free to use colloquial language if that improves the flow of the text.
 
 ## AI policy
