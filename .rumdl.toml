@@ -1,4 +1,4 @@
 [global]
 exclude = ["SUMMARY.md"]
-disable = ["MD036", "MD051", "MD041"]
+disable = ["MD036", "MD051", "MD041", "MD026"]
 line-length = 500

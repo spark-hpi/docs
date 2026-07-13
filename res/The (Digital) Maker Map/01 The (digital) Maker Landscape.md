@@ -35,8 +35,6 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 
 [Salim Benbouziyane](https://www.youtube.com/@salimbenbouz) - Very much a maker channel, also explains his projects and uploads the project files.
 
-[Pinouts](https://pinouts.org/) - Free pinouts PDF with more than 200 parts in extremely good quality!
-
 #### Educational
 
 [KnowArt](https://www.youtube.com/@KnowArt) - Educative channel about many mechanical concepts and how things work in general. Gives off "Sendung mit der Maus" vibes :).
@@ -70,6 +68,8 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 [GreatScott](https://www.youtube.com/@greatscottlab) - Scott tells you all about microcontrollers and embedded projects.
 
 [This Does Not Compute](https://www.youtube.com/@ThisDoesNotCompute) - Has a lot of interesting vintage hardware projects
+
+[Parts-People Dell Laptop Experts](https://www.youtube.com/@dellpartspeople) - Laptop repairs (good for troubleshooting problems and fixing them on your own)
 
 ### Hacking
 
@@ -112,3 +112,5 @@ Let's start with the best and biggest: YouTube. You can practically find anythin
 [Reichelt](https://www.reichelt.de) - Electronics store.
 
 [Mouser Electronics](https://www.mouser.de/) - Electric components, mostly for PCBs
+
+[Pinouts](https://pinouts.org/) - Free pinouts PDF with more than 200 parts in extremely good quality!
