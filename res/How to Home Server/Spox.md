@@ -6,9 +6,11 @@ hero: spox
 
 ## What is a Spox?
 
-You want a cool, fully extendable sensor box for your smart home? Also one that doesn't cost a fortune or come in a big and ugly plastic shell? Meet the Spox.
+You want to do Home Assistant automations based on real-time data from your place? Meet the Spox -- a cool, fully extendable sensor box that doesn't cost a fortune or comes in a big and ugly plastic shell?
 
-It reads your room's temperature, humidity, barometric pressure and air quality, tracks up to 3 people across the room with high accuracy, and shows all of it on the box itself and in your Home Assistant setup.
+It reads your room's temperature, humidity, barometric pressure and air quality, tracks up to 3 people across the room with high accuracy, and shows all of it on the box itself.
+
+We built it on top of [Alexander Kutschera's Smart Plants PCB](https://github.com/vektorious/hpi_smart_plants) which he kindly gifted to us for the original workshop.
 
 ## What are we going to deploy?
 
