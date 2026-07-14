@@ -53,10 +53,6 @@ Don't panic if your BME680 air quality numbers look completely off the first tim
 
 Leave it running for 24 to 48 hours straight to let it settle. After that, it's good.
 
-## The Display
-
-For laying out what actually shows on the OLED, [Lopaka](https://lopaka.app/) is worth a look. It's a browser-based editor where you drag text, icons and shapes onto a 1:1 preview of your screen, then export the drawing code straight into your ESPHome display lambda. Beats nudging pixel offsets by hand.
-
 ## Code and ESPHome
 
 The Spox runs on [ESPHome](https://esphome.io/). Instead of writing firmware in C++ by hand, you describe the board and each sensor in one YAML file, and ESPHome compiles that into firmware and flashes it onto the chip. Anything you define shows up in Home Assistant on its own, so there's no glue code to maintain.
