@@ -69,7 +69,7 @@ YAML keeps it short and readable, usually a handful of lines per sensor with no 
 
 After the first flash you can ditch the cable. Every change to the YAML after that gets pushed over the air.
 
-Already running Home Assistant? Install the **ESPHome Device Builder** add-on and keep all your configs in there instead. Same idea, managed from inside HA.
+Running Home Assistant OS? Install the **ESPHome Device Builder** add-on and keep all your configs in there instead. Same idea, managed from inside HA.
 
 Prefer the terminal? With ESPHome installed locally, `esphome run spox.yaml` compiles your config, flashes it over USB (or over the air if the board is already on the network) and tails the logs so you can watch it boot.
 
