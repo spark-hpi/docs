@@ -41,9 +41,9 @@ Wire up and test each component on its own before you commit to the full assembl
 
 Here's how we hooked everything up to the ESP32-C6:
 
-- OLED display: I²C
-- LD2450 (mmWave): UART
-- BME680: I²C
+- OLED display: I²C (3.3V)
+- LD2450 (mmWave): UART (5V)
+- BME680: I²C (3.3V - 5V)
 
 ## The Burn-In Phase
 
