@@ -87,4 +87,4 @@ Pulling in numbers is the easy part. The fun starts when you do something with t
 
 There's a lot more you can do with it, and we'd love to hear what you come up with.
 
-Thanks for building along. If there's an automation you want to see next, tell us, or better yet, write it yourself and show us.
+Thanks for building along. If there's an automation you want to see next, tell us, or better yet, write it yourself and show us!
