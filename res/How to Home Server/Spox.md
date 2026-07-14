@@ -61,7 +61,28 @@ For laying out what actually shows on the OLED, [Lopaka](https://lopaka.app/) is
 
 The Spox runs on [ESPHome](https://esphome.io/). Instead of writing firmware in C++ by hand, you describe the board and each sensor in one YAML file, and ESPHome compiles that into firmware and flashes it onto the chip. Anything you define shows up in Home Assistant on its own, so there's no glue code to maintain.
 
-YAML keeps it short and readable, usually a handful of lines per sensor with no boilerplate. Never touched it? The official docs are the place to start: [esphome.io](https://esphome.io).
+You can find a full working configuration inside the [Spox repository](https://github.com/spark-hpi/spox/tree/main/esphome). Edit it and uncomment these lines:
+
+```yaml
+# Enable Home Assistant API
+api:
+  encryption:
+    key: "XXXXXX" # replace with the output of the generator at https://esphome.io/components/api/#configuration-variables
+ota:
+  - platform: esphome
+
+wifi:
+  ssid: "Spwifi" # the name of your Wi-Fi
+  password: "supersecret!" # and the password
+
+  # Enable fallback hotspot (captive portal) in case wifi connection fails
+  ap:
+    ssid: "Frank's Spox"
+    password: "supersecret" # change this to something secure
+
+```
+
+If you want to add custom components, see <https://esphome.io>. For laying out what actually shows on the OLED, [Lopaka](https://lopaka.app/) is worth a look. 
 
 **Flashing, the quick way:**
 
