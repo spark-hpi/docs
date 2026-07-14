@@ -84,17 +84,26 @@ wifi:
 
 If you want to add custom components, see <https://esphome.io>. For laying out what actually shows on the OLED, [Lopaka](https://lopaka.app/) is worth a look. 
 
-**Flashing, the quick way:**
+To flash this configuration to the device, you need to either install [`esphome` locally](https://esphome.io/guides/installing_esphome/) or set up the [ESPHome Device Builder](https://esphome.io/guides/getting_started_hassio/). Note that the one-click installation is for Home Assistant OS, not the Home Assistant container we set up during the How To Home-Server workshop.
 
-1. Plug the ESP32-C6 into your computer with a proper data USB cable, not a charge-only one.
-2. Open [web.esphome.io](https://web.esphome.io) in a browser that supports WebSerial (Chrome or Edge), hit **Connect** and pick the board's serial port.
-3. Hit install. Once it joins your Wi-Fi it shows up in Home Assistant.
+For the device builder:
 
-After the first flash you can ditch the cable. Every change to the YAML after that gets pushed over the air.
+1. Upload the `paging_dashboard.yaml` to ESPHome.
+2. Plug the ESP32-C6 into your computer with a proper data USB cable.
+3. Open ESPHome in the browser and download the configuration as a binary (`.hex` file extension)
+4. Open <https://web.esphome.io> in a browser that supports WebSerial (currently only Chromium and derivatives), hit **Connect** and pick the board's serial port, then hit **Install**.
 
-Running Home Assistant OS? Install the **ESPHome Device Builder** add-on and keep all your configs in there instead. Same idea, managed from inside HA.
+For the command line, run inside the `esphome` directory of the Spox repository:
 
-Prefer the terminal? With ESPHome installed locally, `esphome run spox.yaml` compiles your config, flashes it over USB (or over the air if the board is already on the network) and tails the logs so you can watch it boot.
+```
+esphome run paging_dashboard.yaml
+```
+
+Note that the device name is derived from the configuration file name, so you might want to rename the file to something like `spox.yaml`. You do not have to rename the `paging_dashboard.h`. 
+
+After the first flash you can ditch the cable. Every change to the YAML after that gets pushed over the air. All that remains is to add your device to Home Assistant. From the ESPHome documentation:
+
+> Manually add the device on the Home Assistant Integrations page. To do so, click on the "Add Integration" button (bottom right), search for "ESPHome" and enter the ESPHome device's host name. The host name is based on the name you’ve given to the device; if you named your device "living-room-lamp", its host name will be living-room-lamp.local. You can also enter the device’s IP address, if for some reason you prefer to use that.
 
 ## Integrating with Home Assistant
 
