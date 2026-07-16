@@ -12,21 +12,11 @@ It reads your room's temperature, humidity, barometric pressure and air quality,
 
 We built it on top of [Alexander Kutschera's Smart Plants PCB](https://github.com/vektorious/hpi_smart_plants) which he kindly gifted to us for the original workshop.
 
-## What are we going to deploy?
-
-This is part two of our Smart Home series. We're building the Spox from scratch: a few sensors and a small OLED wired to an ESP32, all sitting in a case we designed ourselves.
-
-The ESP32 reads the sensors, the screen shows you what's going on at a glance, and once it's running we pull everything into Home Assistant so you can actually automate your room.
-
 ## So, let's get started!
 
-First, grab your hardware. We designed and 3D-printed our own case, so everything fits properly and looks good on a desk or mounted on a wall.
+First, grab your hardware. We designed and 3D-printed our own case, so everything fits properly and looks good on a desk or mounted on a wall. You can find the files for the case inside the [Spox repository](https://github.com/spark-hpi/spox). The PCB can also be found in that repo, but it's not strictly required. For the hardware, see this list:
 
-If a term or some notation trips you up, jump down to the [[Glossary and Notation]]. It is recommended you glance over the notations before reading the guide.
 
-## The Hardware
-
-Here's everything that goes into a Spox:
 
 | Component              | Model                 | Purpose                                                                     |
 | ---------------------- | --------------------- | --------------------------------------------------------------------------- |
@@ -34,8 +24,9 @@ Here's everything that goes into a Spox:
 | Presence Sensor        | LD2450                | mmWave sensor that can track and triangulate up to 3 targets on a 2D plane. |
 | Environment Sensor     | BME680                | Measures temperature, humidity, barometric pressure and VOCs.               |
 | Display                | Small OLED            | Displays local readouts in real-time.                                       |
-| Case                   | Custom 3D Print       | Houses all the components securely.                                         |
 | Anything else YOU want |                       |                                                                             |
+
+If a term or some notation trips you up, jump down to the [[Glossary and Notation]]. It is recommended you glance over the notations before reading the guide.
 
 ## Wiring it up
 
@@ -49,13 +40,13 @@ Here's how we hooked everything up to the ESP32-C6:
 
 ## The Burn-In Phase
 
-Don't panic if your BME680 air quality numbers look completely off the first time you power it up. The BME680 has a tiny heating element inside for measuring VOCs, and it needs to burn off leftover manufacturing gunk before those readings mean anything.
+Don't panic if your BME680 air quality numbers look completely off the first time you power it up. The BME680 has a tiny heating element inside for measuring VOCs, and it needs to burn off leftover manufacturing gunk (as well as particles absorbed when unused for an extended period of time) before those readings mean anything.
 
 Leave it running for 24 to 48 hours straight to let it settle. After that, it's good.
 
 ## Code and ESPHome
 
-The Spox runs on [ESPHome](https://esphome.io/). Instead of writing firmware in C++ by hand, you describe the board and each sensor in one YAML file, and ESPHome compiles that into firmware and flashes it onto the chip. Anything you define shows up in Home Assistant on its own, so there's no glue code to maintain.
+The Spox runs [ESPHome](https://esphome.io/). Instead of writing firmware in C++ by hand, you describe the board and each sensor in one YAML file, and ESPHome compiles that into firmware and flashes it onto the chip. Anything you define shows up in Home Assistant on its own.
 
 You can find a full working configuration inside the [Spox repository](https://github.com/spark-hpi/spox/tree/main/esphome). Edit it and uncomment these lines:
 
@@ -101,7 +92,7 @@ After the first flash you can ditch the cable. Every change to the YAML after th
 
 > Manually add the device on the Home Assistant Integrations page. To do so, click on the "Add Integration" button (bottom right), search for "ESPHome" and enter the ESPHome device's host name. The host name is based on the name you’ve given to the device; if you named your device "living-room-lamp", its host name will be living-room-lamp.local. You can also enter the device’s IP address, if for some reason you prefer to use that.
 
-## Integrating with Home Assistant
+## Building automations
 
 Once the ESP32-C6 is giving you solid readings, it's time to get that data into Home Assistant.
 
